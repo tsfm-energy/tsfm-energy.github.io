@@ -38,9 +38,9 @@
     "data/results/ttm_r3/RTX_5090/measurements.json",
     "data/results/ttm_r3/RTX_A6000/measurements.json",
     "data/results/ttm_r3/Jetson_AGX_Orin/measurements.json",
-    "data/results/timesfm/NVIDIA_H100/measurements.json",
-    "data/results/timesfm/RTX_5090/measurements.json",
-    "data/results/timesfm/RTX_A6000/measurements.json",
-    "data/results/timesfm/Jetson_AGX_Orin/measurements.json"
+    "data/results/timesfm_2p5/NVIDIA_H100/measurements.json",
+    "data/results/timesfm_2p5/RTX_5090/measurements.json",
+    "data/results/timesfm_2p5/RTX_A6000/measurements.json",
+    "data/results/timesfm_2p5/Jetson_AGX_Orin/measurements.json"
   ]
 }
