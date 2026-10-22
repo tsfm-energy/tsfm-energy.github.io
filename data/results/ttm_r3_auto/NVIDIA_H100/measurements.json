@@ -1,0 +1,511 @@
+{
+  "model_id": "ttm_r3_auto",
+  "hardware": "NVIDIA_H100",
+  "num_measurements": 63,
+  "measurements": [
+    {
+      "context_len": 1024,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19366.05507518717,
+      "energy_per_window_j_mean": 0.025701324931578,
+      "peak_gpu_memory_used_gb_mean": 2.2198486328125
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19411.14204965582,
+      "energy_per_window_j_mean": 0.025524725935926,
+      "peak_gpu_memory_used_gb_mean": 2.2257080078125
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19128.107035475467,
+      "energy_per_window_j_mean": 0.025935577179653,
+      "peak_gpu_memory_used_gb_mean": 2.2178955078125
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12457.078692176616,
+      "energy_per_window_j_mean": 0.0426975662733902,
+      "peak_gpu_memory_used_gb_mean": 2.8311767578125
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12357.472524740544,
+      "energy_per_window_j_mean": 0.0434371132031796,
+      "peak_gpu_memory_used_gb_mean": 2.8370361328125
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12429.648222533851,
+      "energy_per_window_j_mean": 0.0430477371856276,
+      "peak_gpu_memory_used_gb_mean": 2.8292236328125
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 35147.873099849894,
+      "energy_per_window_j_mean": 0.0049068168493734,
+      "peak_gpu_memory_used_gb_mean": 1.3480224609375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 35377.12094909976,
+      "energy_per_window_j_mean": 0.0048403466748819,
+      "peak_gpu_memory_used_gb_mean": 1.3460693359375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 34402.63407746123,
+      "energy_per_window_j_mean": 0.0049579099499314,
+      "peak_gpu_memory_used_gb_mean": 1.3460693359375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 35724.04857164033,
+      "energy_per_window_j_mean": 0.0048213149608993,
+      "peak_gpu_memory_used_gb_mean": 1.3460693359375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 23244.37571986377,
+      "energy_per_window_j_mean": 0.0152967207675722,
+      "peak_gpu_memory_used_gb_mean": 1.7464599609375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 23167.2622994118,
+      "energy_per_window_j_mean": 0.0152529736497394,
+      "peak_gpu_memory_used_gb_mean": 1.7425537109375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22571.34530234759,
+      "energy_per_window_j_mean": 0.0153655274509107,
+      "peak_gpu_memory_used_gb_mean": 1.7620849609375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19757.76378235873,
+      "energy_per_window_j_mean": 0.0273116501848907,
+      "peak_gpu_memory_used_gb_mean": 2.2308349609375
+    },
+    {
+      "context_len": 512,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19632.81942541175,
+      "energy_per_window_j_mean": 0.026734962789137,
+      "peak_gpu_memory_used_gb_mean": 2.2230224609375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 18796.708627873057,
+      "energy_per_window_j_mean": 0.0195215310416905,
+      "peak_gpu_memory_used_gb_mean": 1.8070068359375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 18914.427951993595,
+      "energy_per_window_j_mean": 0.0191067172677162,
+      "peak_gpu_memory_used_gb_mean": 1.8011474609375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 18897.94726189122,
+      "energy_per_window_j_mean": 0.0192666931999759,
+      "peak_gpu_memory_used_gb_mean": 1.8011474609375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 18896.903949137908,
+      "energy_per_window_j_mean": 0.0195423926319521,
+      "peak_gpu_memory_used_gb_mean": 1.8031005859375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 18893.55772773144,
+      "energy_per_window_j_mean": 0.0191940392718654,
+      "peak_gpu_memory_used_gb_mean": 1.8070068359375
+    },
+    {
+      "context_len": 1024,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19870.04607383193,
+      "energy_per_window_j_mean": 0.0262066160000222,
+      "peak_gpu_memory_used_gb_mean": 2.2093505859375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12647.484566234052,
+      "energy_per_window_j_mean": 0.0438765631980018,
+      "peak_gpu_memory_used_gb_mean": 2.8109130859375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12661.64733272173,
+      "energy_per_window_j_mean": 0.0437224872367452,
+      "peak_gpu_memory_used_gb_mean": 2.8070068359375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12668.267243610851,
+      "energy_per_window_j_mean": 0.0434471895274857,
+      "peak_gpu_memory_used_gb_mean": 2.8070068359375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12665.913281861942,
+      "energy_per_window_j_mean": 0.0432867399774725,
+      "peak_gpu_memory_used_gb_mean": 2.8089599609375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12671.908747763067,
+      "energy_per_window_j_mean": 0.043595230572297,
+      "peak_gpu_memory_used_gb_mean": 2.8109130859375
+    },
+    {
+      "context_len": 2048,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 12656.125620483674,
+      "energy_per_window_j_mean": 0.043579453987228,
+      "peak_gpu_memory_used_gb_mean": 2.8109130859375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 23088.526717689616,
+      "energy_per_window_j_mean": 0.0152620677746096,
+      "peak_gpu_memory_used_gb_mean": 1.7425537109375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22974.23723637832,
+      "energy_per_window_j_mean": 0.0154466561819349,
+      "peak_gpu_memory_used_gb_mean": 1.7601318359375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19739.440735009102,
+      "energy_per_window_j_mean": 0.026628056144225,
+      "peak_gpu_memory_used_gb_mean": 2.2308349609375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19673.58102438914,
+      "energy_per_window_j_mean": 0.0268619374743566,
+      "peak_gpu_memory_used_gb_mean": 2.2230224609375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22739.44862842714,
+      "energy_per_window_j_mean": 0.0153000375147702,
+      "peak_gpu_memory_used_gb_mean": 1.7503662109375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22886.543885189763,
+      "energy_per_window_j_mean": 0.0154244525470358,
+      "peak_gpu_memory_used_gb_mean": 1.7698974609375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19811.778834805275,
+      "energy_per_window_j_mean": 0.0264369417314058,
+      "peak_gpu_memory_used_gb_mean": 2.2308349609375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19595.57657319858,
+      "energy_per_window_j_mean": 0.0274494233015303,
+      "peak_gpu_memory_used_gb_mean": 2.2230224609375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22967.36646421776,
+      "energy_per_window_j_mean": 0.0154696889889225,
+      "peak_gpu_memory_used_gb_mean": 1.7503662109375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22787.865568228623,
+      "energy_per_window_j_mean": 0.0155341064742889,
+      "peak_gpu_memory_used_gb_mean": 1.7698974609375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19759.61387832552,
+      "energy_per_window_j_mean": 0.0265037654804329,
+      "peak_gpu_memory_used_gb_mean": 2.2308349609375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19571.16006430863,
+      "energy_per_window_j_mean": 0.027269315613711,
+      "peak_gpu_memory_used_gb_mean": 2.2230224609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 23045.104905247936,
+      "energy_per_window_j_mean": 0.0152995136381025,
+      "peak_gpu_memory_used_gb_mean": 1.7523193359375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 192,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 22873.755199784824,
+      "energy_per_window_j_mean": 0.015580934123099,
+      "peak_gpu_memory_used_gb_mean": 1.7698974609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 360,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19672.38303750909,
+      "energy_per_window_j_mean": 0.0266430548399295,
+      "peak_gpu_memory_used_gb_mean": 2.2269287109375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 720,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 19534.30131589082,
+      "energy_per_window_j_mean": 0.0266784483568431,
+      "peak_gpu_memory_used_gb_mean": 2.2191162109375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50416.43724271871,
+      "energy_per_window_j_mean": 0.0037238689343068,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50001.08359055093,
+      "energy_per_window_j_mean": 0.0037061689431623,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50292.5998166102,
+      "energy_per_window_j_mean": 0.0036575660337322,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 51198.12499062618,
+      "energy_per_window_j_mean": 0.0034389281441904,
+      "peak_gpu_memory_used_gb_mean": 1.3421630859375
+    },
+    {
+      "context_len": 32,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 26017.10968838515,
+      "energy_per_window_j_mean": 0.0136912536695253,
+      "peak_gpu_memory_used_gb_mean": 1.7425537109375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 48962.51714188421,
+      "energy_per_window_j_mean": 0.0037964802275425,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50715.61398142779,
+      "energy_per_window_j_mean": 0.0037079317143655,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50253.574928482514,
+      "energy_per_window_j_mean": 0.0037523582415211,
+      "peak_gpu_memory_used_gb_mean": 1.3499755859375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 51245.13766888196,
+      "energy_per_window_j_mean": 0.0034947190807576,
+      "peak_gpu_memory_used_gb_mean": 1.3421630859375
+    },
+    {
+      "context_len": 64,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 26045.01547570545,
+      "energy_per_window_j_mean": 0.0137476385387788,
+      "peak_gpu_memory_used_gb_mean": 1.7425537109375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50401.83978056088,
+      "energy_per_window_j_mean": 0.0037154339284768,
+      "peak_gpu_memory_used_gb_mean": 1.3519287109375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50134.60380186911,
+      "energy_per_window_j_mean": 0.0037840622753164,
+      "peak_gpu_memory_used_gb_mean": 1.3519287109375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50153.56457279423,
+      "energy_per_window_j_mean": 0.0037593678443052,
+      "peak_gpu_memory_used_gb_mean": 1.3519287109375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50334.52161794432,
+      "energy_per_window_j_mean": 0.0035621534517195,
+      "peak_gpu_memory_used_gb_mean": 1.3421630859375
+    },
+    {
+      "context_len": 128,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 26017.351966369257,
+      "energy_per_window_j_mean": 0.0141942512013935,
+      "peak_gpu_memory_used_gb_mean": 1.7464599609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 1,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 51085.13324705737,
+      "energy_per_window_j_mean": 0.0041069086829835,
+      "peak_gpu_memory_used_gb_mean": 1.3714599609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 6,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 51410.44053223191,
+      "energy_per_window_j_mean": 0.0040960833917572,
+      "peak_gpu_memory_used_gb_mean": 1.3714599609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 12,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 51366.70034344296,
+      "energy_per_window_j_mean": 0.0042590206131619,
+      "peak_gpu_memory_used_gb_mean": 1.3714599609375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 24,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 50378.60022908654,
+      "energy_per_window_j_mean": 0.0036552549629337,
+      "peak_gpu_memory_used_gb_mean": 1.3441162109375
+    },
+    {
+      "context_len": 256,
+      "horizon_len": 48,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 49386.783520254925,
+      "energy_per_window_j_mean": 0.0049716640413537,
+      "peak_gpu_memory_used_gb_mean": 1.4085693359375
+    }
+  ]
+}

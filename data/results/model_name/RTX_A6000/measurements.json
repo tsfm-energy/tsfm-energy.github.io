@@ -1,0 +1,15 @@
+{
+  "model_id": "model_name",
+  "hardware": "RTX_A6000",
+  "num_measurements": 1,
+  "measurements": [
+    {
+      "context_len": null,
+      "horizon_len": null,
+      "batch_size": null,
+      "throughput_windows_per_sec_mean": "throughput_windows_per_sec_mean",
+      "energy_per_window_j_mean": "energy_per_window_j_mean",
+      "peak_gpu_memory_used_gb_mean": "peak_gpu_memory_used_gb_mean"
+    }
+  ]
+}

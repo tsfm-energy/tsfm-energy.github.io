@@ -1,0 +1,199 @@
+{
+  "models": [
+    {
+      "model_id": "units",
+      "folder": "units",
+      "model_name": "units",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 3,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000"
+      ]
+    },
+    {
+      "model_id": "kairos",
+      "folder": "kairos",
+      "model_name": "kairos",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "moirai2",
+      "folder": "moirai2",
+      "model_name": "moirai2",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "flowstate",
+      "folder": "flowstate",
+      "model_name": "flowstate",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "moment",
+      "folder": "moment",
+      "model_name": "moment",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "sundial",
+      "folder": "sundial",
+      "model_name": "sundial",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "toto",
+      "folder": "toto",
+      "model_name": "toto",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "chronos2",
+      "folder": "chronos2",
+      "model_name": "chronos2",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "tempopfn",
+      "folder": "tempopfn",
+      "model_name": "tempopfn",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "tirex",
+      "folder": "tirex",
+      "model_name": "tirex",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "ttm_r2",
+      "folder": "ttm_r2",
+      "model_name": "ttm_r2",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 1,
+      "hardware_variants": [
+        "NVIDIA_H100"
+      ]
+    },
+    {
+      "model_id": "ttm_r3_auto",
+      "folder": "ttm_r3_auto",
+      "model_name": "ttm_r3_auto",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "timesfm_2p5",
+      "folder": "timesfm_2p5",
+      "model_name": "timesfm_2p5",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 4,
+      "hardware_variants": [
+        "NVIDIA_H100",
+        "RTX_5090",
+        "RTX_A6000",
+        "Jetson_AGX_Orin"
+      ]
+    },
+    {
+      "model_id": "model_name",
+      "folder": "model_name",
+      "model_name": "model_name",
+      "variant": null,
+      "num_parameters": null,
+      "hardware_count": 1,
+      "hardware_variants": [
+        "RTX_A6000"
+      ]
+    }
+  ],
+  "hardware_list": [
+    "NVIDIA H100",
+    "RTX 5090",
+    "RTX A6000",
+    "Jetson AGX Orin"
+  ]
+}

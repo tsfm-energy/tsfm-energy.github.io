@@ -1,0 +1,10 @@
+{
+  "model_name": "units",
+  "variant": null,
+  "num_parameters": null,
+  "hardware_variants": [
+    "NVIDIA_H100",
+    "RTX_5090",
+    "RTX_A6000"
+  ]
+}

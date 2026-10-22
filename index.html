@@ -100,6 +100,15 @@
     .ranker-status.error { background:#fff3f1; color:#9b3022; }
     .ranker-status.ok { background:#effaf6; color:#21634b; }
     .ranker-note { color:var(--muted); font-size:.86rem; line-height:1.7; margin-top:1rem; }
+    .ranking-chart { display:flex; flex-direction:column; gap:.9rem; }
+    .ranking-row { display:grid; grid-template-columns:minmax(90px,125px) minmax(60px,1fr) auto; align-items:center; gap:.65rem; }
+    .ranking-model { font-size:.84rem; font-weight:750; overflow-wrap:anywhere; }
+    .ranking-track { height:15px; background:#edf0f6; border-radius:5px; overflow:hidden; }
+    .ranking-bar { height:100%; width:0; background:linear-gradient(90deg,#4968e8,#16a6a1); border-radius:5px; }
+    .ranking-bar.epf { background:linear-gradient(90deg,#16a6a1,#78c9a8); }
+    .ranking-value { font-size:.82rem; font-variant-numeric:tabular-nums; font-weight:750; white-space:nowrap; }
+    .ranking-position { display:inline-grid; place-items:center; width:23px; height:23px; margin-right:.35rem; border-radius:7px; background:#edf0f7; font-size:.75rem; font-weight:800; }
+    @media(max-width:500px) { .ranking-row { grid-template-columns:80px minmax(40px,1fr) auto; gap:.4rem; } .ranking-model,.ranking-value { font-size:.75rem; } }
     @media(max-width:700px) { .ranker-controls { grid-template-columns:1fr; padding:1.1rem; } .ranker-results { padding:1.1rem; } .ranker-top { padding:1.1rem; } }
     .footer { padding:2.5rem 1.25rem; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; }
     .footer-wrap { max-width:1100px; margin:auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
@@ -117,7 +126,7 @@
         <a href="#methodology">Methodology</a>
         <a href="#workloads">Workloads</a>
         <a href="#findings">Findings</a>
-        <a href="#ranker">Model ranker</a>
+        <a href="#ranker">Results explorer</a>
         <a href="#results">Results</a>
         <a href="#reproducibility">Reproducibility</a>
       </div>
@@ -270,34 +279,38 @@
 
     <section class="section-pad section-soft" id="ranker">
       <div class="section-wrap">
-        <div class="section-kicker">Interactive tool</div>
-        <h2 class="section-title">Which model should you choose?</h2>
-        <p class="section-intro">Explore how model rankings change when you shift the priority between forecasting accuracy and inference efficiency. Utilities are normalized so higher is always better.</p>
+        <div class="section-kicker">Benchmark explorer</div>
+        <h2 class="section-title">Compare model efficiency for a workload</h2>
+        <p class="section-intro">Choose a context length and forecast horizon to compare available models by throughput and energy per forecast (EPF). The visualizer reads the published JSON result files directly; rankings update when you change the workload or hardware.</p>
         <div class="ranker-shell">
           <div class="ranker-top">
-            <div style="font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aebfff">ForecastPowerBench · Model selector</div>
-            <h3 style="font-size:1.45rem;font-weight:800;margin-top:.45rem">Accuracy ↔ Efficiency</h3>
-            <p>α = 0 prioritizes accuracy. α = 1 prioritizes the selected efficiency metric. Rankings update as you move the slider.</p>
+            <div style="font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aebfff">ForecastPowerBench · Results explorer</div>
+            <h3 style="font-size:1.45rem;font-weight:800;margin-top:.45rem">Throughput and energy efficiency</h3>
+            <p>Higher throughput is better. Lower EPF is better. Only models with a measurement for the selected configuration are shown.</p>
           </div>
           <div class="ranker-controls">
-            <div class="ranker-field" style="grid-column:1/-1">
-              <label for="alpha-slider"><span>Efficiency priority (α)</span><strong id="alpha-value">0.50</strong></label>
-              <input id="alpha-slider" type="range" min="0" max="1" step="0.01" value="0.5" aria-describedby="alpha-help">
-              <div class="alpha-endpoints"><span>0 · Accuracy only</span><span>Balanced</span><span>1 · Efficiency only</span></div>
-              <div id="alpha-help" class="ranker-note" style="margin-top:.35rem">Score = α × efficiency utility + (1 − α) × accuracy utility.</div>
-            </div>
             <div class="ranker-field"><label for="ranker-device">Hardware platform</label><select id="ranker-device"><option value="">Loading platforms…</option></select></div>
             <div class="ranker-field"><label for="ranker-context">Context length</label><select id="ranker-context"><option value="">Loading contexts…</option></select></div>
             <div class="ranker-field"><label for="ranker-horizon">Forecast horizon</label><select id="ranker-horizon"><option value="">Loading horizons…</option></select></div>
             <div class="ranker-field"><label for="ranker-batch">Batch size</label><select id="ranker-batch"><option value="">Loading batch sizes…</option></select></div>
-            <div class="ranker-field"><label for="ranker-efficiency">Efficiency metric</label><select id="ranker-efficiency"><option value="throughput">Throughput (higher is better)</option><option value="epf">Energy per forecast (lower is better)</option><option value="memory">Peak GPU memory (lower is better)</option></select></div>
-            <div class="ranker-field"><label for="ranker-accuracy">Accuracy metric</label><select id="ranker-accuracy"><option value="MASE">MASE (lower is better)</option><option value="MAPE">MAPE (lower is better)</option><option value="MAE">MAE (lower is better)</option><option value="RMSE">RMSE (lower is better)</option><option value="SMAPE">SMAPE (lower is better)</option></select></div>
           </div>
           <div class="ranker-results">
-            <div class="ranker-summary" id="ranker-summary"><div class="ranker-chip">Loading benchmark CSV files…</div></div>
-            <div class="ranker-table-wrap"><table class="ranker-table"><thead><tr><th>Rank</th><th>Model</th><th>Accuracy</th><th>Efficiency</th><th>Accuracy utility</th><th>Efficiency utility</th><th>Weighted score</th></tr></thead><tbody id="ranker-table-body"><tr><td colspan="7">Loading data…</td></tr></tbody></table></div>
-            <div id="ranker-status" class="ranker-status" role="status" aria-live="polite">Attempting to load merged and raw system-metrics CSV files.</div>
-            <p class="ranker-note">Utilities use min–max normalization within the selected comparison set. Models without both the selected accuracy and efficiency values are excluded. For a meaningful comparison, choose one hardware/workload configuration; “All” averages across multiple configurations and should be interpreted cautiously. This ranking is a decision aid, not a universal model ranking.</p>
+            <div class="ranker-summary" id="ranker-summary"><div class="ranker-chip">Loading JSON results…</div></div>
+            <div class="grid-2" style="margin-top:1rem">
+              <article class="info-card">
+                <h3 style="margin-top:0">Throughput ranking <span class="pill">Higher is better</span></h3>
+                <p style="margin-bottom:1rem">Forecast windows processed per second.</p>
+                <div id="throughput-chart" class="ranking-chart"><p class="ranker-note">Loading throughput data…</p></div>
+              </article>
+              <article class="info-card">
+                <h3 style="margin-top:0">Energy per forecast (EPF) <span class="pill">Lower is better</span></h3>
+                <p style="margin-bottom:1rem">Energy consumed per forecast window, in joules.</p>
+                <div id="epf-chart" class="ranking-chart"><p class="ranker-note">Loading EPF data…</p></div>
+              </article>
+            </div>
+            <div class="ranker-table-wrap" style="margin-top:1.25rem"><table class="ranker-table"><thead><tr><th>Model</th><th>Throughput rank</th><th>Throughput (windows/s)</th><th>EPF rank</th><th>EPF (J/forecast)</th><th>Peak GPU memory (GB)</th></tr></thead><tbody id="ranker-table-body"><tr><td colspan="6">Loading data…</td></tr></tbody></table></div>
+            <div id="ranker-status" class="ranker-status" role="status" aria-live="polite">Loading JSON result files from the manifest.</div>
+            <p class="ranker-note">Rankings are calculated separately for each metric and selected workload. Models missing a measurement for the selected context, horizon, hardware, or batch size are not included. EPF uses the energy-per-window field provided by the result file; confirm that its measurement scope is consistent across devices before comparing hardware platforms.</p>
           </div>
         </div>
       </div>
@@ -344,7 +357,7 @@
           <article class="info-card">
             <h3>Results and metadata</h3>
             <p>Provide CSV files with model, device, context, horizon, batch size, precision, repetitions, metric scope, and failure status.</p>
-            <p><a href="data/results_summary.csv">Results CSV (add file)</a></p>
+            <p><a href="data/results-index.json">JSON results manifest</a></p>
           </article>
           <article class="info-card">
             <h3>Protocol</h3>
