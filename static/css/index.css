@@ -750,4 +750,160 @@ a:focus {
 }
 
 
+/* ForecastPowerBench paper figures
+   Keeps the site's existing palette and visual language while styling the results gallery. */
+.paper-figure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: stretch;
+}
 
+.paper-figure-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.paper-figure-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.paper-figure-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 260px;
+  height: 320px;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  text-decoration: none;
+}
+
+.paper-figure-media img,
+.paper-figure-media object {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #fff;
+  object-fit: contain;
+}
+
+/* The enclosing link opens the PDF/image; the embedded PDF remains a preview. */
+.paper-figure-media object {
+  pointer-events: none;
+}
+
+.paper-figure-media img:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.paper-figure-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.25rem 1.35rem 1.4rem;
+}
+
+.paper-figure-number {
+  display: inline-block;
+  margin-bottom: .55rem;
+  color: var(--primary-color);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.paper-figure-copy h3 {
+  margin: 0 0 .6rem;
+  color: var(--text-primary);
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.paper-figure-copy p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: .93rem;
+  line-height: 1.7;
+}
+
+.paper-figure-copy .figure-source {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--primary-color);
+  font-size: .88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.paper-figure-copy .figure-source:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.paper-figure-media:focus-visible,
+.paper-figure-copy .figure-source:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .paper-figure-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .paper-figure-media {
+    height: 300px;
+    min-height: 220px;
+  }
+
+  .paper-figure-copy {
+    padding: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .paper-figure-media {
+    height: 240px;
+    min-height: 200px;
+  }
+
+  .paper-figure-copy h3 {
+    font-size: 1.03rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-figure-card {
+    transition: none;
+  }
+
+  .paper-figure-card:hover {
+    transform: none;
+  }
+}

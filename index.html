@@ -73,6 +73,19 @@
     th { background:#f8f9fc; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:#59667b; }
     tr:last-child td { border-bottom:0; }
     .pill { display:inline-block; border-radius:99px; padding:.3rem .6rem; background:#eef1ff; color:#4057bd; font-weight:700; font-size:.76rem; margin:.2rem .2rem .2rem 0; }
+
+    /* Paper figure gallery: isolated styling; original section and hero styles remain unchanged. */
+    .paper-figure-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.35rem; margin-top:2rem; }
+    .paper-figure-card { margin:0; min-width:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 8px 24px rgba(20,32,51,.055); }
+    .paper-figure-media { display:flex; align-items:center; justify-content:center; padding:1rem; background:#f8faff; border-bottom:1px solid var(--line); min-height:230px; }
+    .paper-figure-media img { display:block; width:100%; height:290px; object-fit:contain; }
+    .paper-figure-copy { padding:1.1rem 1.2rem 1.25rem; }
+    .paper-figure-number { color:var(--accent); text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; font-weight:800; }
+    .paper-figure-copy h3 { margin:.35rem 0 .5rem; font-size:1.04rem; font-weight:800; line-height:1.4; }
+    .paper-figure-copy p { margin:0; color:var(--muted); font-size:.9rem; line-height:1.65; }
+    .figure-path { display:block; margin-top:.7rem; color:#68758b; font-size:.74rem; overflow-wrap:anywhere; }
+    @media(max-width:760px) { .paper-figure-grid { grid-template-columns:1fr; } .paper-figure-media img { height:auto; max-height:360px; } }
+
     .figure-placeholder { display:flex; min-height:220px; align-items:center; justify-content:center; text-align:center; padding:2rem; border:1.5px dashed #cbd3e1; border-radius:16px; background:rgba(255,255,255,.7); color:#6a7588; line-height:1.7; }
     .figure-placeholder strong { color:var(--ink); display:block; margin-bottom:.3rem; }
     .code-box { background:#111b2b; color:#e5edff; padding:1.2rem 1.4rem; border-radius:14px; overflow:auto; font-size:.88rem; }
@@ -146,7 +159,7 @@
         <div class="hero-actions">
           <!-- Replace placeholder URLs with the public resources when available. -->
           <a class="button primary is-medium is-rounded" href="#results">Explore benchmark results</a>
-          <a class="button secondary is-medium is-rounded" href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench" target="_blank" rel="noopener"> <span aria-hidden="true">↗</span>&nbsp; Code and data</a>
+          <a class="button secondary is-medium is-rounded" href="https://github.com/" target="_blank" rel="noopener"> <span aria-hidden="true">↗</span>&nbsp; Code and data</a>
           <a class="button secondary is-medium is-rounded" href="static/pdfs/forecastpowerbench_paper.pdf">Read the paper</a>
         </div>
         <div style="margin-top:2rem">
@@ -163,9 +176,7 @@
         <div class="section-kicker">Why this benchmark?</div>
         <h2 class="section-title">Accuracy alone does not tell the whole story.</h2>
         <p class="section-intro">
-          TSFMs can differ substantially in computational cost and deployment requirements. A model's practical
-          efficiency depends not only on its architecture, but also on the forecasting workload and the hardware
-          on which inference runs. ForecastPowerBench makes these system-level trade-offs measurable.
+          Forecasting accuracy is only one part of deployment suitability. ForecastPowerBench evaluates 10 time-series foundation models across four NVIDIA platforms, measuring how context length, forecast horizon, batch size, and hardware affect inference throughput, energy per forecast, memory use, and feasibility.
         </p>
         <div class="grid-3">
           <article class="info-card">
@@ -191,7 +202,7 @@
       <div class="section-wrap">
         <div class="section-kicker">Measurement framework</div>
         <h2 class="section-title">What does ForecastPowerBench measure?</h2>
-        <p class="section-intro">The benchmark separates workload configuration, model inference, and system telemetry so that reported efficiency metrics can be interpreted in context.</p>
+        <p class="section-intro">Each model runs through its native inference implementation while a common measurement workflow associates system measurements with the model, workload, and hardware configuration.</p>
         <div class="metric-grid">
           <div class="metric"><strong>Throughput</strong><span>Forecast windows processed per second; optionally report forecast points per second.</span></div>
           <div class="metric"><strong>Energy per Forecast (EPF)</strong><span>Total measured inference energy divided by the number of forecasts processed.</span></div>
@@ -220,8 +231,7 @@
         <div class="section-kicker">Experimental design</div>
         <h2 class="section-title">A broad space of forecasting workloads</h2>
         <p class="section-intro">
-          The benchmark sweeps multiple context lengths and forecast horizons to investigate workload sensitivity.
-          On the H100 workload-scaling experiments, the design includes 63 context–horizon configurations with batch size fixed at 512.
+          The H100 workload sweep covers 63 context–horizon configurations at batch size 512. Separate batch-size experiments examine throughput and EPF scaling across the H100, RTX 5090, RTX A6000, and Jetson AGX Orin.
         </p>
         <div class="table-wrap">
           <table>
@@ -258,21 +268,21 @@
     <section class="section-pad section-soft" id="findings">
       <div class="section-wrap">
         <div class="section-kicker">Research questions</div>
-        <h2 class="section-title">Questions the benchmark is designed to answer</h2>
+        <h2 class="section-title">What the experiments reveal</h2>
         <div class="grid-2">
           <article class="info-card">
             <div class="icon-box">RQ1</div>
-            <h3>How do forecasting workloads affect efficiency?</h3>
-            <p>How do batch size, context length, and forecast horizon influence throughput and energy per forecast, and how do these effects vary across models?</p>
+            <h3>Workload scaling is model-dependent</h3>
+            <p>Increasing context length generally reduces throughput, but the magnitude varies widely. Longer horizons can cause sharp degradation for some models, while others remain comparatively stable.</p>
           </article>
           <article class="info-card">
             <div class="icon-box">RQ2</div>
-            <h3>How do trends transfer across hardware?</h3>
-            <p>Do relative efficiency trends observed on a high-end accelerator persist on workstation GPUs and an edge platform, or do hardware constraints change the operating point?</p>
+            <h3>Size alone does not predict efficiency</h3>
+            <p>Models with different parameter counts show distinct throughput, energy, and memory requirements. Deployment choices need measured system performance, workload sensitivity, and feasibility—not model size or architecture labels alone.</p>
           </article>
         </div>
         <div class="callout">
-          <strong>Current takeaway:</strong> workload configuration is a first-order factor in TSFM system performance. Increasing batch size can improve throughput and reduce EPF, while context length and forecast horizon affect models differently. Cross-platform comparisons should account for both absolute performance and feasibility.
+          <strong>Key takeaway:</strong> batching generally improves throughput and reduces EPF until model- and hardware-dependent saturation points. These gains are not uniform, and absolute performance and feasible workloads differ across platforms.
         </div>
       </div>
     </section>
@@ -316,32 +326,219 @@
       </div>
     </section>
 
-    <section class="section-pad" id="results">
-      <div class="section-wrap">
-        <div class="section-kicker">Explore the evidence</div>
-        <h2 class="section-title">Results and visualizations</h2>
-        <p class="section-intro">Replace the figure placeholders below with plots exported from the benchmark. Prefer vector PDF/SVG or high-resolution PNG, and include the workload and measurement scope in every caption.</p>
-        <div class="grid-2">
-          <figure>
-            <div class="figure-placeholder"><div><strong>Figure 1 · Throughput vs. model size</strong>Add: <code>static/images/parameter_vs_throughput.png</code><br>Compare model parameter count with inference throughput.</div></div>
-            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Throughput is workload- and platform-dependent; state batch size, context, and horizon.</figcaption>
-          </figure>
-          <figure>
-            <div class="figure-placeholder"><div><strong>Figure 2 · Energy per forecast</strong>Add: <code>static/images/parameter_vs_epf.png</code><br>Compare energy cost per forecast across models.</div></div>
-            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Clearly label whether energy is GPU-only, board-level, or whole-system.</figcaption>
-          </figure>
-          <figure>
-            <div class="figure-placeholder"><div><strong>Figure 3 · Context–horizon sensitivity</strong>Add: <code>static/images/workload_scaling_heatmap.png</code><br>Show normalized throughput and EPF across workload configurations.</div></div>
-            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Use consistent scales and identify missing or infeasible configurations.</figcaption>
-          </figure>
-          <figure>
-            <div class="figure-placeholder"><div><strong>Figure 4 · Cross-platform efficiency</strong>Add: <code>static/images/hardware_comparison.png</code><br>Compare relative trends across H100, RTX 5090, RTX A6000, and Jetson AGX Orin.</div></div>
-            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Include the device power mode and measurement method where relevant.</figcaption>
-          </figure>
-        </div>
-        <div class="callout">These are placeholders, not published results. Replace them with validated plots from the final experiment tables before making the website public.</div>
-      </div>
-    </section>
+<section class="section-pad" id="results">
+  <div class="section-wrap">
+    <div class="section-kicker">Results from the paper</div>
+    <h2 class="section-title">Where workload meets system cost</h2>
+    <p class="section-intro">
+      ForecastPowerBench evaluates how forecasting workloads, model architecture,
+      and hardware shape inference efficiency. The figures below summarize workload
+      scaling, batch-size behavior, resource constraints, and accuracy–efficiency trade-offs.
+    </p>
+
+    <div class="paper-figure-grid">
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/absolute_throughput_heatmap.pdf"
+           target="_blank" rel="noopener"
+           aria-label="Open throughput figure PDF">
+          <object data="static/images/paper_figures/absolute_throughput_heatmap.pdf"
+                  type="application/pdf"
+                  aria-label="Absolute throughput across context and horizon configurations">
+            <span>PDF preview unavailable — open figure</span>
+          </object>
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 2 · Workload scaling</span>
+          <h3>Throughput across context–horizon configurations</h3>
+          <p>
+            Absolute throughput for 10 TSFMs on the NVIDIA H100 at batch size 512.
+            The results expose model-specific scaling behavior and feasibility limits.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/absolute_throughput_heatmap.pdf"
+             target="_blank" rel="noopener">Open figure PDF ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/relative_energy_heatmap.pdf"
+           target="_blank" rel="noopener"
+           aria-label="Open energy per forecast figure PDF">
+          <object data="static/images/paper_figures/relative_energy_heatmap.pdf"
+                  type="application/pdf"
+                  aria-label="Energy per forecast across forecasting workloads">
+            <span>PDF preview unavailable — open figure</span>
+          </object>
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 3 · Energy</span>
+          <h3>Energy per Forecast across workloads</h3>
+          <p>
+            EPF across context lengths and forecast horizons on the NVIDIA H100
+            at batch size 512, showing how energy cost changes with workload.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/relative_energy_heatmap.pdf"
+             target="_blank" rel="noopener">Open figure PDF ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure4_relative_throughput.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure4_relative_throughput.png"
+               alt="Relative throughput across forecasting configurations, normalized per model"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 4 · Relative performance</span>
+          <h3>Relative throughput across workloads</h3>
+          <p>
+            Throughput normalized by each model's maximum across evaluated workloads,
+            emphasizing within-model sensitivity rather than absolute speed.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure4_relative_throughput.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
+           target="_blank" rel="noopener">
+          <object data="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
+                  type="application/pdf"
+                  aria-label="Context and horizon sensitivity comparison">
+            <span>PDF preview unavailable — open figure</span>
+          </object>
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 5 · Sensitivity</span>
+          <h3>Context length versus horizon sensitivity</h3>
+          <p>
+            Compares throughput degradation as context length and forecast horizon
+            increase. The dominant scaling dimension varies across models.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
+             target="_blank" rel="noopener">Open figure PDF ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure6_throughput_batch_hardware.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure6_throughput_batch_hardware.png"
+               alt="Inference throughput versus batch size across four hardware platforms"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 6 · Batch scaling</span>
+          <h3>Throughput versus batch size across platforms</h3>
+          <p>
+            Throughput across the Jetson AGX Orin, NVIDIA H100, RTX 5090, and
+            RTX A6000 for context length 512 and horizon 96.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure6_throughput_batch_hardware.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure7_epf_batch_hardware.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure7_epf_batch_hardware.png"
+               alt="Energy per forecast versus batch size across four hardware platforms"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 7 · Energy scaling</span>
+          <h3>EPF versus batch size across platforms</h3>
+          <p>
+            Energy per forecast under the same fixed workload, showing how batching
+            changes energy cost across deployment hardware.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure7_epf_batch_hardware.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure8_accuracy_efficiency.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure8_accuracy_efficiency.png"
+               alt="Accuracy and efficiency trade-offs across short, medium, and long forecasting regimes"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 8 · Accuracy and energy</span>
+          <h3>Accuracy–efficiency trade-offs</h3>
+          <p>
+            Throughput and EPF across short (512, 48), medium (1024, 360),
+            and long (2048, 720) regimes. Bubble size represents MASE.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure8_accuracy_efficiency.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure9_memory_throughput.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure9_memory_throughput.png"
+               alt="Peak GPU memory and throughput across forecasting regimes"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 9 · Memory constraints</span>
+          <h3>Memory–throughput trade-offs</h3>
+          <p>
+            Compares peak GPU memory with throughput across workload regimes,
+            highlighting differences in resource requirements and feasibility.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure9_memory_throughput.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+      <figure class="paper-figure-card">
+        <a class="paper-figure-media"
+           href="static/images/paper_figures/figure10_parameter_tradeoff.png"
+           target="_blank" rel="noopener">
+          <img src="static/images/paper_figures/figure10_parameter_tradeoff.png"
+               alt="Throughput and EPF trade-offs with marker size encoding model parameter count"
+               loading="lazy">
+        </a>
+        <figcaption class="paper-figure-copy">
+          <span class="paper-figure-number">Figure 10 · Model scale</span>
+          <h3>Parameter count is not enough</h3>
+          <p>
+            Throughput–EPF trade-offs across short, medium, and long regimes,
+            with marker size representing model parameter count.
+          </p>
+          <a class="figure-source"
+             href="static/images/paper_figures/figure10_parameter_tradeoff.png"
+             target="_blank" rel="noopener">Open figure ↗</a>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
 
     <section class="section-pad section-soft" id="reproducibility">
       <div class="section-wrap">
@@ -352,27 +549,27 @@
           <article class="info-card">
             <h3>Code</h3>
             <p>Publish the benchmark harness, model adapters, launch scripts, telemetry collectors, and environment instructions.</p>
-            <p><a href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench" target="_blank" rel="noopener">Open repository ↗</a></p>
+            <p><a href="https://github.com/" target="_blank" rel="noopener">Open repository ↗</a></p>
           </article>
           <article class="info-card">
             <h3>Results and metadata</h3>
-            <p>Provide CSV files with model, device, context, horizon, batch size, precision, repetitions, metric scope, and failure status.</p>
+            <p>Machine-readable measurements are organized by model variant and hardware in JSON files.</p>
             <p><a href="data/results-index.json">JSON results manifest</a></p>
           </article>
           <article class="info-card">
             <h3>Protocol</h3>
-            <p>Document software versions, power mode, warm-up policy, measurement interval, telemetry sampling, and aggregation formulas.</p>
+            <p>Report the software environment, power mode, warm-up, measurement interval, telemetry scope, and aggregation procedure alongside results.</p>
             <p><a href="docs/measurement_protocol.md">Measurement protocol (add file)</a></p>
           </article>
         </div>
         <h3 style="font-size:1.2rem;font-weight:800;margin-top:2.4rem">Cite ForecastPowerBench</h3>
-        <p style="color:var(--muted);line-height:1.7">Replace this BibTeX entry with the final authors, title, venue, year, and DOI or preprint URL once they are confirmed.</p>
+        <p style="color:var(--muted);line-height:1.7">Citation details can be added when the paper’s authorship and publication venue are finalized.</p>
         <pre class="code-box"><code>@inproceedings{forecastpowerbench,
   title     = {ForecastPowerBench: Benchmarking the Inference Efficiency of Time Series Foundation Models},
-  author    = {Author Names},
-  booktitle = {Venue},
-  year      = {Year},
-  url       = {Project URL}
+  author    = {ForecastPowerBench authors},
+  booktitle = {Preprint},
+  year      = {2026},
+  url       = {ForecastPowerBench project page}
 }</code></pre>
         <button class="button primary is-rounded" style="margin-top:1rem" onclick="copyCitation()">Copy citation</button>
         <span id="copy-status" role="status" aria-live="polite" style="margin-left:.75rem;color:var(--muted);font-size:.9rem"></span>
@@ -383,7 +580,7 @@
   <footer class="footer">
     <div class="footer-wrap">
       <div><strong>ForecastPowerBench</strong><br>Workload-aware evaluation of time-series foundation model efficiency.</div>
-      <div>Built for transparency and reproducibility. <a href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench">Source code</a></div>
+      <div>Built for transparency and reproducibility. <a href="https://github.com/">Source code</a></div>
     </div>
   </footer>
   <script src="static/js/ranker.js" defer></script>
@@ -391,10 +588,10 @@
     function copyCitation() {
       const citation = `@inproceedings{forecastpowerbench,
   title     = {ForecastPowerBench: Benchmarking the Inference Efficiency of Time Series Foundation Models},
-  author    = {Author Names},
-  booktitle = {Venue},
-  year      = {Year},
-  url       = {Project URL}
+  author    = {ForecastPowerBench authors},
+  booktitle = {Preprint},
+  year      = {2026},
+  url       = {ForecastPowerBench project page}
 }`;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(citation).then(() => {
