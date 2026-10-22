@@ -3,518 +3,396 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
-  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
-  <!-- TODO: List all authors -->
-  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="title" content="ForecastPowerBench: Benchmarking the Efficiency of Time Series Foundation Models">
+  <meta name="description" content="ForecastPowerBench evaluates the throughput, energy consumption, memory footprint, and deployment efficiency of time series foundation models across forecasting workloads and hardware platforms.">
+  <meta name="keywords" content="ForecastPowerBench, time series foundation models, TSFM, energy per forecast, inference efficiency, benchmarking, edge AI, GPU benchmarking">
+  <meta name="author" content="ForecastPowerBench authors">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
-  <!-- TODO: Same as paper title above -->
-  <meta property="og:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
-  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
-  <meta property="article:author" content="FIRST_AUTHOR_NAME">
-  <meta property="article:section" content="Research">
-  <meta property="article:tag" content="KEYWORD1">
-  <meta property="article:tag" content="KEYWORD2">
-
-  <!-- Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ForecastPowerBench">
+  <meta property="og:title" content="ForecastPowerBench">
+  <meta property="og:description" content="A workload-aware benchmark for understanding the inference efficiency of time series foundation models.">
+  <!-- Replace with your published GitHub Pages URL and preview image before launch. -->
+  <meta property="og:url" content="https://YOUR_GITHUB_USERNAME.github.io/ForecastPowerBench/">
+  <meta property="og:image" content="https://YOUR_GITHUB_USERNAME.github.io/ForecastPowerBench/static/images/social_preview.png">
+  <meta property="og:image:alt" content="ForecastPowerBench benchmark overview">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
-  <meta name="twitter:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
-
-  <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="PAPER_TITLE">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
-  
-  <!-- Additional SEO -->
-  <meta name="theme-color" content="#2563eb">
-  <meta name="msapplication-TileColor" content="#2563eb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
-  <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://ajax.googleapis.com">
-  <link rel="preconnect" href="https://documentcloud.adobe.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-
-  <!-- TODO: Replace with your paper title and authors -->
-  <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
-  
-  <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
-  
-  <!-- Critical CSS - Load synchronously -->
+  <meta name="twitter:title" content="ForecastPowerBench">
+  <meta name="twitter:description" content="Benchmarking the inference efficiency of time series foundation models across workloads and hardware.">
+  <meta name="twitter:image" content="https://YOUR_GITHUB_USERNAME.github.io/ForecastPowerBench/static/images/social_preview.png">
+  <meta name="theme-color" content="#101827">
+  <title>ForecastPowerBench | Workload-Aware TSFM Efficiency Benchmark</title>
+  <link rel="icon" href="static/images/favicon.ico">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-  
-  <!-- Non-critical CSS - Load asynchronously -->
-  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
-  <!-- Fallback for browsers that don't support preload -->
-  <noscript>
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  </noscript>
-  
-  <!-- Fonts - Optimized loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Defer non-critical JavaScript -->
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script defer src="static/js/bulma-carousel.min.js"></script>
-  <script defer src="static/js/bulma-slider.min.js"></script>
-  <script defer src="static/js/index.js"></script>
-  
-  <!-- Structured Data for Academic Papers -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "PAPER_TITLE",
-    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "FIRST_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "SECOND_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      }
-    ],
-    "datePublished": "2024-01-01",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CONFERENCE_OR_JOURNAL_NAME"
-    },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
-    "citation": "BIBTEX_CITATION_HERE",
-    "isAccessibleForFree": true,
-    "license": "https://creativecommons.org/licenses/by/4.0/",
-    "mainEntity": {
-      "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
-    },
-    "about": [
-      {
-        "@type": "Thing",
-        "name": "RESEARCH_AREA_1"
-      },
-      {
-        "@type": "Thing", 
-        "name": "RESEARCH_AREA_2"
-      }
-    ]
-  }
-  </script>
-  
-  <!-- Website/Organization Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "INSTITUTION_OR_LAB_NAME",
-    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
-    "sameAs": [
-      "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
-    ]
-  }
-  </script>
+  <style>
+    :root { --ink:#142033; --muted:#5c687b; --line:#e5eaf1; --paper:#fff; --soft:#f5f7fb; --accent:#4968e8; --accent2:#16a6a1; }
+    html { scroll-behavior:smooth; scroll-padding-top:82px; }
+    body { font-family:Inter,system-ui,sans-serif; color:var(--ink); }
+    .site-nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+    .nav-inner { max-width:1160px; margin:auto; padding:.8rem 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { font-weight:800; letter-spacing:-.04em; color:var(--ink); font-size:1.15rem; }
+    .brand span { color:var(--accent); }
+    .nav-links { display:flex; flex-wrap:wrap; gap:1.1rem; align-items:center; font-size:.88rem; }
+    .nav-links a { color:#4b5870; font-weight:600; }
+    .nav-links a:hover { color:var(--accent); }
+    .hero-main { background:radial-gradient(ellipse at 85% 10%,rgba(73,104,232,.13),transparent 35%),linear-gradient(180deg,#fbfcff 0%,#fff 100%); padding:5.5rem 1.25rem 4rem; }
+    .hero-wrap { max-width:1050px; margin:auto; text-align:center; }
+    .eyebrow { display:inline-flex; padding:.4rem .8rem; border:1px solid #dce3ff; border-radius:99px; color:#4057bd; background:#f3f5ff; font-weight:700; font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; }
+    h1.hero-title { font-size:clamp(2.5rem,6vw,4.5rem); line-height:1.04; letter-spacing:-.065em; font-weight:800; margin:1.2rem 0 1.25rem; }
+    .gradient-text { background:linear-gradient(90deg,#4968e8,#169f9b); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero-lede { max-width:800px; margin:0 auto; color:var(--muted); font-size:clamp(1.05rem,2vw,1.28rem); line-height:1.75; }
+    .hero-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:.75rem; margin-top:1.8rem; }
+    .button.primary { background:var(--ink); color:white; border-color:var(--ink); }
+    .button.primary:hover { background:#273754; color:white; }
+    .button.secondary { background:white; color:var(--ink); border:1px solid #d8deea; }
+    .section-pad { padding:4.5rem 1.25rem; }
+    .section-soft { background:var(--soft); }
+    .section-wrap { max-width:1100px; margin:auto; }
+    .section-kicker { color:var(--accent); text-transform:uppercase; font-weight:800; letter-spacing:.12em; font-size:.75rem; margin-bottom:.55rem; }
+    .section-title { font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.15; letter-spacing:-.045em; font-weight:800; margin-bottom:1rem; }
+    .section-intro { color:var(--muted); line-height:1.8; max-width:790px; font-size:1.02rem; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:2rem; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:2rem; }
+    .info-card { background:white; border:1px solid var(--line); border-radius:18px; padding:1.35rem; height:100%; box-shadow:0 4px 18px rgba(20,32,51,.025); }
+    .info-card h3 { font-size:1.08rem; font-weight:800; margin:.75rem 0 .45rem; }
+    .info-card p, .info-card li { color:var(--muted); line-height:1.7; font-size:.94rem; }
+    .icon-box { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; color:var(--accent); background:#eef1ff; font-size:1.2rem; font-weight:800; }
+    .metric-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin-top:2rem; }
+    .metric { border:1px solid var(--line); border-radius:15px; padding:1.15rem; background:#fff; }
+    .metric strong { display:block; font-size:1.05rem; margin-bottom:.35rem; }
+    .metric span { display:block; color:var(--muted); font-size:.86rem; line-height:1.55; }
+    .callout { margin-top:1.5rem; padding:1rem 1.2rem; border-left:4px solid var(--accent2); background:#effaf9; color:#285d5a; border-radius:0 12px 12px 0; line-height:1.7; }
+    .table-wrap { overflow-x:auto; margin-top:1.4rem; border:1px solid var(--line); border-radius:14px; background:white; }
+    table { width:100%; border-collapse:collapse; min-width:620px; }
+    th,td { padding:.9rem 1rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:.91rem; }
+    th { background:#f8f9fc; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:#59667b; }
+    tr:last-child td { border-bottom:0; }
+    .pill { display:inline-block; border-radius:99px; padding:.3rem .6rem; background:#eef1ff; color:#4057bd; font-weight:700; font-size:.76rem; margin:.2rem .2rem .2rem 0; }
+    .figure-placeholder { display:flex; min-height:220px; align-items:center; justify-content:center; text-align:center; padding:2rem; border:1.5px dashed #cbd3e1; border-radius:16px; background:rgba(255,255,255,.7); color:#6a7588; line-height:1.7; }
+    .figure-placeholder strong { color:var(--ink); display:block; margin-bottom:.3rem; }
+    .code-box { background:#111b2b; color:#e5edff; padding:1.2rem 1.4rem; border-radius:14px; overflow:auto; font-size:.88rem; }
+    .ranker-shell { border:1px solid var(--line); border-radius:20px; overflow:hidden; background:#fff; box-shadow:0 12px 40px rgba(20,32,51,.06); margin-top:2rem; }
+    .ranker-top { padding:1.35rem 1.5rem; background:linear-gradient(120deg,#111b2b,#243b64); color:#fff; }
+    .ranker-top p { color:#d5def0; line-height:1.65; margin-top:.4rem; }
+    .ranker-controls { padding:1.4rem 1.5rem; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem 1.5rem; border-bottom:1px solid var(--line); }
+    .ranker-field label { display:flex; justify-content:space-between; gap:1rem; font-weight:750; font-size:.9rem; margin-bottom:.5rem; }
+    .ranker-field select { width:100%; border:1px solid #d7deea; border-radius:10px; padding:.7rem .75rem; color:var(--ink); background:white; font:inherit; }
+    .ranker-field input[type=range] { width:100%; accent-color:var(--accent); }
+    .alpha-endpoints { display:flex; justify-content:space-between; color:var(--muted); font-size:.78rem; margin-top:.25rem; }
+    .ranker-results { padding:1.4rem 1.5rem; }
+    .ranker-summary { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1rem; }
+    .ranker-chip { border:1px solid var(--line); border-radius:10px; padding:.55rem .75rem; background:#f9faff; font-size:.82rem; color:#536077; }
+    .ranker-chip strong { color:var(--ink); }
+    .ranker-table-wrap { overflow:auto; border:1px solid var(--line); border-radius:12px; }
+    .ranker-table { min-width:680px; }
+    .ranker-table th { white-space:nowrap; }
+    .ranker-table tr.top-ranked td { background:#f0f5ff; }
+    .rank-num { display:inline-grid; place-items:center; width:28px; height:28px; border-radius:9px; background:#edf0f7; font-weight:800; }
+    .top-ranked .rank-num { background:#dce6ff; color:#304fbd; }
+    .score-track { height:7px; background:#edf0f6; border-radius:99px; min-width:90px; overflow:hidden; margin-top:.35rem; }
+    .score-track span { display:block; height:100%; background:linear-gradient(90deg,#4968e8,#16a6a1); border-radius:99px; }
+    .ranker-status { margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.88rem; line-height:1.6; background:#f5f7fb; color:#5c687b; }
+    .ranker-status.error { background:#fff3f1; color:#9b3022; }
+    .ranker-status.ok { background:#effaf6; color:#21634b; }
+    .ranker-note { color:var(--muted); font-size:.86rem; line-height:1.7; margin-top:1rem; }
+    @media(max-width:700px) { .ranker-controls { grid-template-columns:1fr; padding:1.1rem; } .ranker-results { padding:1.1rem; } .ranker-top { padding:1.1rem; } }
+    .footer { padding:2.5rem 1.25rem; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; }
+    .footer-wrap { max-width:1100px; margin:auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    a { transition:color .15s ease; }
+    @media(max-width:800px) { .nav-inner { align-items:flex-start; flex-direction:column; } .nav-links { gap:.8rem; } .grid-3,.grid-2 { grid-template-columns:1fr; } .metric-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .hero-main { padding-top:4rem; } }
+    @media(max-width:430px) { .metric-grid { grid-template-columns:1fr; } .nav-links { font-size:.82rem; } }
+  </style>
 </head>
 <body>
-
-
-  <!-- Scroll to Top Button -->
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <!-- More Works Dropdown -->
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
+  <header class="site-nav">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a class="brand" href="#top">Forecast<span>Power</span>Bench</a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#workloads">Workloads</a>
+        <a href="#findings">Findings</a>
+        <a href="#ranker">Model ranker</a>
+        <a href="#results">Results</a>
+        <a href="#reproducibility">Reproducibility</a>
       </div>
-      <div class="works-list">
-        <!-- TODO: Replace with your lab's related works -->
-        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
-          <div class="work-info">
-            <!-- TODO: Replace with actual paper title -->
-            <h5>Paper Title 1</h5>
-            <!-- TODO: Replace with brief description -->
-            <p>Brief description of the work and its main contribution.</p>
-            <!-- TODO: Replace with venue and year -->
-            <span class="work-venue">Conference/Journal 2024</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <!-- TODO: Add more related works or remove extra items -->
-        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 2</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 3</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero-main">
+      <div class="hero-wrap">
+        <span class="eyebrow">Benchmarking efficient time-series AI</span>
+        <h1 class="hero-title">Forecasting has a cost.<br><span class="gradient-text">Measure it.</span></h1>
+        <p class="hero-lede">
+          <strong>ForecastPowerBench</strong> is a workload-aware benchmark for studying the inference efficiency of
+          time series foundation models (TSFMs). It examines how context length, forecast horizon, batch size,
+          model architecture, and hardware shape throughput, energy consumption, and memory requirements.
+        </p>
+        <div class="hero-actions">
+          <!-- Replace placeholder URLs with the public resources when available. -->
+          <a class="button primary is-medium is-rounded" href="#results">Explore benchmark results</a>
+          <a class="button secondary is-medium is-rounded" href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench" target="_blank" rel="noopener"> <span aria-hidden="true">↗</span>&nbsp; Code and data</a>
+          <a class="button secondary is-medium is-rounded" href="static/pdfs/forecastpowerbench_paper.pdf">Read the paper</a>
+        </div>
+        <div style="margin-top:2rem">
+          <span class="pill">Workload scaling</span>
+          <span class="pill">Energy per forecast</span>
+          <span class="pill">Cross-platform evaluation</span>
+          <span class="pill">Reproducible measurements</span>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <main id="main-content">
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
-              <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
-                  <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
-                  </span>
-                  </div>
+    <section class="section-pad" id="overview">
+      <div class="section-wrap">
+        <div class="section-kicker">Why this benchmark?</div>
+        <h2 class="section-title">Accuracy alone does not tell the whole story.</h2>
+        <p class="section-intro">
+          TSFMs can differ substantially in computational cost and deployment requirements. A model's practical
+          efficiency depends not only on its architecture, but also on the forecasting workload and the hardware
+          on which inference runs. ForecastPowerBench makes these system-level trade-offs measurable.
+        </p>
+        <div class="grid-3">
+          <article class="info-card">
+            <div class="icon-box">01</div>
+            <h3>Workload-aware evaluation</h3>
+            <p>Vary context length, forecast horizon, and batch size to expose how inference behavior changes across forecasting workloads.</p>
+          </article>
+          <article class="info-card">
+            <div class="icon-box">02</div>
+            <h3>Efficiency beyond throughput</h3>
+            <p>Consider throughput, energy per forecast, and peak memory together rather than treating speed as the only deployment criterion.</p>
+          </article>
+          <article class="info-card">
+            <div class="icon-box">03</div>
+            <h3>Across hardware platforms</h3>
+            <p>Compare model behavior on a high-end accelerator, workstation GPUs, and an edge platform, while accounting for platform-specific constraints.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-                  <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Institution Name<br>Conference name and year</span>
-                    <!-- TODO: Remove this line if no equal contribution -->
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
+    <section class="section-pad section-soft" id="methodology">
+      <div class="section-wrap">
+        <div class="section-kicker">Measurement framework</div>
+        <h2 class="section-title">What does ForecastPowerBench measure?</h2>
+        <p class="section-intro">The benchmark separates workload configuration, model inference, and system telemetry so that reported efficiency metrics can be interpreted in context.</p>
+        <div class="metric-grid">
+          <div class="metric"><strong>Throughput</strong><span>Forecast windows processed per second; optionally report forecast points per second.</span></div>
+          <div class="metric"><strong>Energy per Forecast (EPF)</strong><span>Total measured inference energy divided by the number of forecasts processed.</span></div>
+          <div class="metric"><strong>Peak memory</strong><span>Maximum observed memory use within the documented measurement scope.</span></div>
+          <div class="metric"><strong>Power</strong><span>Power telemetry from the supported device or measurement boundary, reported with its scope.</span></div>
+        </div>
+        <div class="callout">
+          <strong>Measurement scope matters.</strong> GPU telemetry, CPU package energy, board-level measurements, and whole-system wall-power measurements are not interchangeable. Each result should identify the sensor, sampling method, and measurement boundary used.
+        </div>
+        <div class="grid-2">
+          <div class="info-card">
+            <h3>Energy per Forecast</h3>
+            <p>For a measurement interval, EPF is defined as total inference energy divided by the number of forecast windows processed.</p>
+            <div class="code-box" style="margin-top:1rem">EPF = E_total / N_forecasts</div>
+          </div>
+          <div class="info-card">
+            <h3>Fair comparisons</h3>
+            <p>Document warm-up, timing boundaries, batch size, context and horizon, precision, model availability, and telemetry scope. Report variability across repeated runs where available.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
+    <section class="section-pad" id="workloads">
+      <div class="section-wrap">
+        <div class="section-kicker">Experimental design</div>
+        <h2 class="section-title">A broad space of forecasting workloads</h2>
+        <p class="section-intro">
+          The benchmark sweeps multiple context lengths and forecast horizons to investigate workload sensitivity.
+          On the H100 workload-scaling experiments, the design includes 63 context–horizon configurations with batch size fixed at 512.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dimension</th><th>Configurations</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Context length</td><td>32, 64, 128, 256, 512, 1024, 2048</td><td>Study the cost of increasing historical input length.</td></tr>
+              <tr><td>Forecast horizon</td><td>1, 6, 12, 24, 48, 96, 192, 360, 720</td><td>Study the cost of producing longer forecasts.</td></tr>
+              <tr><td>Batch size</td><td>Includes a fixed batch size of 512 for the H100 workload sweep; additional batch-size experiments</td><td>Measure throughput and energy amortization as workload concurrency changes.</td></tr>
+              <tr><td>Hardware</td><td>NVIDIA H100, RTX 5090, RTX A6000, Jetson AGX Orin</td><td>Examine how observed efficiency trends transfer across platforms.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid-3">
+          <article class="info-card">
+            <h3>Short-term regime</h3>
+            <p><span class="pill">Context 512</span><span class="pill">Horizon 48</span></p>
+            <p>A benchmark-defined workload point used for the short forecasting regime in the accuracy–efficiency analysis.</p>
+          </article>
+          <article class="info-card">
+            <h3>Medium-term regime</h3>
+            <p><span class="pill">Context 1024</span><span class="pill">Horizon 360</span></p>
+            <p>A benchmark-defined workload point used for the medium forecasting regime.</p>
+          </article>
+          <article class="info-card">
+            <h3>Long-term regime</h3>
+            <p><span class="pill">Context 2048</span><span class="pill">Horizon 720</span></p>
+            <p>A benchmark-defined workload point used for the long forecasting regime. These are study choices, not universal definitions.</p>
+          </article>
+        </div>
+        <p class="section-intro" style="margin-top:1.2rem;font-size:.9rem">Note: model support varies by context and horizon. Infeasible configurations and out-of-memory failures should be reported rather than silently omitted.</p>
+      </div>
+    </section>
 
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
+    <section class="section-pad section-soft" id="findings">
+      <div class="section-wrap">
+        <div class="section-kicker">Research questions</div>
+        <h2 class="section-title">Questions the benchmark is designed to answer</h2>
+        <div class="grid-2">
+          <article class="info-card">
+            <div class="icon-box">RQ1</div>
+            <h3>How do forecasting workloads affect efficiency?</h3>
+            <p>How do batch size, context length, and forecast horizon influence throughput and energy per forecast, and how do these effects vary across models?</p>
+          </article>
+          <article class="info-card">
+            <div class="icon-box">RQ2</div>
+            <h3>How do trends transfer across hardware?</h3>
+            <p>Do relative efficiency trends observed on a high-end accelerator persist on workstation GPUs and an edge platform, or do hardware constraints change the operating point?</p>
+          </article>
+        </div>
+        <div class="callout">
+          <strong>Current takeaway:</strong> workload configuration is a first-order factor in TSFM system performance. Increasing batch size can improve throughput and reduce EPF, while context length and forecast horizon affect models differently. Cross-platform comparisons should account for both absolute performance and feasibility.
+        </div>
+      </div>
+    </section>
 
-                  <!-- TODO: Replace with your GitHub repository URL -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <!-- TODO: Update with your arXiv paper ID -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
+    <section class="section-pad section-soft" id="ranker">
+      <div class="section-wrap">
+        <div class="section-kicker">Interactive tool</div>
+        <h2 class="section-title">Which model should you choose?</h2>
+        <p class="section-intro">Explore how model rankings change when you shift the priority between forecasting accuracy and inference efficiency. Utilities are normalized so higher is always better.</p>
+        <div class="ranker-shell">
+          <div class="ranker-top">
+            <div style="font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aebfff">ForecastPowerBench · Model selector</div>
+            <h3 style="font-size:1.45rem;font-weight:800;margin-top:.45rem">Accuracy ↔ Efficiency</h3>
+            <p>α = 0 prioritizes accuracy. α = 1 prioritizes the selected efficiency metric. Rankings update as you move the slider.</p>
+          </div>
+          <div class="ranker-controls">
+            <div class="ranker-field" style="grid-column:1/-1">
+              <label for="alpha-slider"><span>Efficiency priority (α)</span><strong id="alpha-value">0.50</strong></label>
+              <input id="alpha-slider" type="range" min="0" max="1" step="0.01" value="0.5" aria-describedby="alpha-help">
+              <div class="alpha-endpoints"><span>0 · Accuracy only</span><span>Balanced</span><span>1 · Efficiency only</span></div>
+              <div id="alpha-help" class="ranker-note" style="margin-top:.35rem">Score = α × efficiency utility + (1 − α) × accuracy utility.</div>
             </div>
+            <div class="ranker-field"><label for="ranker-device">Hardware platform</label><select id="ranker-device"><option value="">Loading platforms…</option></select></div>
+            <div class="ranker-field"><label for="ranker-context">Context length</label><select id="ranker-context"><option value="">Loading contexts…</option></select></div>
+            <div class="ranker-field"><label for="ranker-horizon">Forecast horizon</label><select id="ranker-horizon"><option value="">Loading horizons…</option></select></div>
+            <div class="ranker-field"><label for="ranker-batch">Batch size</label><select id="ranker-batch"><option value="">Loading batch sizes…</option></select></div>
+            <div class="ranker-field"><label for="ranker-efficiency">Efficiency metric</label><select id="ranker-efficiency"><option value="throughput">Throughput (higher is better)</option><option value="epf">Energy per forecast (lower is better)</option><option value="memory">Peak GPU memory (lower is better)</option></select></div>
+            <div class="ranker-field"><label for="ranker-accuracy">Accuracy metric</label><select id="ranker-accuracy"><option value="MASE">MASE (lower is better)</option><option value="MAPE">MAPE (lower is better)</option><option value="MAE">MAE (lower is better)</option><option value="RMSE">RMSE (lower is better)</option><option value="SMAPE">SMAPE (lower is better)</option></select></div>
+          </div>
+          <div class="ranker-results">
+            <div class="ranker-summary" id="ranker-summary"><div class="ranker-chip">Loading benchmark CSV files…</div></div>
+            <div class="ranker-table-wrap"><table class="ranker-table"><thead><tr><th>Rank</th><th>Model</th><th>Accuracy</th><th>Efficiency</th><th>Accuracy utility</th><th>Efficiency utility</th><th>Weighted score</th></tr></thead><tbody id="ranker-table-body"><tr><td colspan="7">Loading data…</td></tr></tbody></table></div>
+            <div id="ranker-status" class="ranker-status" role="status" aria-live="polite">Attempting to load merged and raw system-metrics CSV files.</div>
+            <p class="ranker-note">Utilities use min–max normalization within the selected comparison set. Models without both the selected accuracy and efficiency values are excluded. For a meaningful comparison, choose one hardware/workload configuration; “All” averages across multiple configurations and should be interpreted cautiously. This ranking is a decision aid, not a universal model ranking.</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
-      <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
-
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
+    <section class="section-pad" id="results">
+      <div class="section-wrap">
+        <div class="section-kicker">Explore the evidence</div>
+        <h2 class="section-title">Results and visualizations</h2>
+        <p class="section-intro">Replace the figure placeholders below with plots exported from the benchmark. Prefer vector PDF/SVG or high-resolution PNG, and include the workload and measurement scope in every caption.</p>
+        <div class="grid-2">
+          <figure>
+            <div class="figure-placeholder"><div><strong>Figure 1 · Throughput vs. model size</strong>Add: <code>static/images/parameter_vs_throughput.png</code><br>Compare model parameter count with inference throughput.</div></div>
+            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Throughput is workload- and platform-dependent; state batch size, context, and horizon.</figcaption>
+          </figure>
+          <figure>
+            <div class="figure-placeholder"><div><strong>Figure 2 · Energy per forecast</strong>Add: <code>static/images/parameter_vs_epf.png</code><br>Compare energy cost per forecast across models.</div></div>
+            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Clearly label whether energy is GPU-only, board-level, or whole-system.</figcaption>
+          </figure>
+          <figure>
+            <div class="figure-placeholder"><div><strong>Figure 3 · Context–horizon sensitivity</strong>Add: <code>static/images/workload_scaling_heatmap.png</code><br>Show normalized throughput and EPF across workload configurations.</div></div>
+            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Use consistent scales and identify missing or infeasible configurations.</figcaption>
+          </figure>
+          <figure>
+            <div class="figure-placeholder"><div><strong>Figure 4 · Cross-platform efficiency</strong>Add: <code>static/images/hardware_comparison.png</code><br>Compare relative trends across H100, RTX 5090, RTX A6000, and Jetson AGX Orin.</div></div>
+            <figcaption style="margin-top:.7rem;color:var(--muted);font-size:.88rem">Include the device power mode and measurement method where relevant.</figcaption>
+          </figure>
         </div>
+        <div class="callout">These are placeholders, not published results. Replace them with validated plots from the final experiment tables before making the website public.</div>
       </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
+    </section>
 
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- TODO: Replace with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
+    <section class="section-pad section-soft" id="reproducibility">
+      <div class="section-wrap">
+        <div class="section-kicker">Reproducibility</div>
+        <h2 class="section-title">Make every result inspectable</h2>
+        <p class="section-intro">A benchmark website is most useful when readers can trace figures back to configurations, raw measurements, and documented evaluation procedures.</p>
+        <div class="grid-3">
+          <article class="info-card">
+            <h3>Code</h3>
+            <p>Publish the benchmark harness, model adapters, launch scripts, telemetry collectors, and environment instructions.</p>
+            <p><a href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench" target="_blank" rel="noopener">Open repository ↗</a></p>
+          </article>
+          <article class="info-card">
+            <h3>Results and metadata</h3>
+            <p>Provide CSV files with model, device, context, horizon, batch size, precision, repetitions, metric scope, and failure status.</p>
+            <p><a href="data/results_summary.csv">Results CSV (add file)</a></p>
+          </article>
+          <article class="info-card">
+            <h3>Protocol</h3>
+            <p>Document software versions, power mode, warm-up policy, measurement interval, telemetry sampling, and aggregation formulas.</p>
+            <p><a href="docs/measurement_protocol.md">Measurement protocol (add file)</a></p>
+          </article>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <!-- TODO: Replace with your poster PDF -->
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
-          <i class="fas fa-copy"></i>
-          <span class="copy-text">Copy</span>
-        </button>
-      </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
-  journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
+        <h3 style="font-size:1.2rem;font-weight:800;margin-top:2.4rem">Cite ForecastPowerBench</h3>
+        <p style="color:var(--muted);line-height:1.7">Replace this BibTeX entry with the final authors, title, venue, year, and DOI or preprint URL once they are confirmed.</p>
+        <pre class="code-box"><code>@inproceedings{forecastpowerbench,
+  title     = {ForecastPowerBench: Benchmarking the Inference Efficiency of Time Series Foundation Models},
+  author    = {Author Names},
+  booktitle = {Venue},
+  year      = {Year},
+  url       = {Project URL}
 }</code></pre>
-    </div>
-</section>
-<!--End BibTex citation -->
-
+        <button class="button primary is-rounded" style="margin-top:1rem" onclick="copyCitation()">Copy citation</button>
+        <span id="copy-status" role="status" aria-live="polite" style="margin-left:.75rem;color:var(--muted);font-size:.9rem"></span>
+      </div>
+    </section>
+  </main>
 
   <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
-      </div>
+    <div class="footer-wrap">
+      <div><strong>ForecastPowerBench</strong><br>Workload-aware evaluation of time-series foundation model efficiency.</div>
+      <div>Built for transparency and reproducibility. <a href="https://github.com/YOUR_GITHUB_USERNAME/ForecastPowerBench">Source code</a></div>
     </div>
-  </div>
-</footer>
-
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+  </footer>
+  <script src="static/js/ranker.js" defer></script>
+  <script>
+    function copyCitation() {
+      const citation = `@inproceedings{forecastpowerbench,
+  title     = {ForecastPowerBench: Benchmarking the Inference Efficiency of Time Series Foundation Models},
+  author    = {Author Names},
+  booktitle = {Venue},
+  year      = {Year},
+  url       = {Project URL}
+}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(citation).then(() => {
+          document.getElementById('copy-status').textContent = 'Citation copied.';
+        }).catch(() => {
+          document.getElementById('copy-status').textContent = 'Copy unavailable; select the citation text above.';
+        });
+      } else {
+        document.getElementById('copy-status').textContent = 'Copy unavailable; select the citation text above.';
+      }
+    }
+  </script>
+</body>
+</html>

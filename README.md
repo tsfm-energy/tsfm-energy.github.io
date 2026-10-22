@@ -1,80 +1,32 @@
-# Academic Project Page Template
+# ForecastPowerBench project page + interactive ranker
 
-> **Update (September 2025)**: This template has been modernized with better design, SEO, and mobile support. For the original version, see the [original-version branch](https://github.com/eliahuhorwitz/Academic-project-page-template/tree/original-version).
+## Files
+- `index.html`: landing page and embedded ranking widget UI.
+- `static/js/ranker.js`: loads CSV files and recalculates model ranks as alpha/filters change.
+- `data/merged_system_metrics.csv`: **add your merged CSV** containing model identity, workload/hardware fields, and accuracy metrics (e.g. MASE).
+- `data/raw_system_metrics.csv`: **add your raw system-metrics CSV** containing model/workload fields and raw or per-run efficiency measurements.
 
-A clean, responsive template for academic project pages.
+## Deploy on GitHub Pages
+1. Copy this folder's contents into the root of your GitHub Pages repository (or adjust paths if you keep the site in a subfolder).
+2. Add your two CSV files to `data/` using the filenames above, or change `FPB_MERGED_CSV` and `FPB_RAW_CSV` at the top of `static/js/ranker.js`.
+3. Commit and push. The widget fetches CSVs from the same site origin; it will not load correctly by opening `index.html` with a `file://` URL.
 
+## Expected CSV fields
+The ranker recognizes common aliases, including:
+- Identity: `model_name`, `device_category` or `execution_device`, `context_len`, `horizon_len`, `batch_size`.
+- Accuracy: `MASE`, `MAPE`, `MAE`, `RMSE`, `SMAPE` (lower is better).
+- Throughput: `throughput_windows_per_sec_mean` or `throughput_points_per_sec_mean` (higher is better).
+- Energy: `energy_per_window_j_mean` or `energy_per_forecast_j` (lower is better). If unavailable, it can calculate energy per forecast from total energy divided by forecast count when those columns are present.
+- Memory: `peak_gpu_memory_used_gb_mean` or a compatible peak-memory field (lower is better).
 
-Example project pages built using this template are:
-- https://horwitz.ai/probex
-- https://vision.huji.ac.il/probegen
-- https://horwitz.ai/mother
-- https://horwitz.ai/spectral_detuning
-- https://vision.huji.ac.il/ladeda
-- https://vision.huji.ac.il/dsire
-- https://horwitz.ai/podd
-- https://dreamix-video-editing.github.io
-- https://horwitz.ai/conffusion
-- https://horwitz.ai/3d_ads/
-- https://vision.huji.ac.il/ssrl_ad
-- https://vision.huji.ac.il/deepsim
+The merged CSV supplies accuracy and model/workload metadata. Raw CSV rows are preferred for the selected efficiency measurement; the merged CSV is used as a fallback when no raw efficiency value is available for that model. Model matching is by the model name string, and selected workload filters are applied to both files.
 
+## Score
+`score = alpha * efficiency_utility + (1 - alpha) * accuracy_utility`
 
+Each utility is min-max normalized within the currently selected comparison set, with lower-is-better metrics inverted. At alpha 0, the score ranks by accuracy utility; at alpha 1, it ranks by the selected efficiency utility. When filters are set to “All”, metrics are averaged over the matching rows; for rigorous comparisons, select one hardware/context/horizon/batch configuration. The ranker excludes models missing either selected accuracy or efficiency values.
 
-## Start using the template
-To start using the template click on `Use this Template`.
-
-The template uses html for controlling the content and css for controlling the style. 
-To edit the websites contents edit the `index.html` file. It contains different HTML "building blocks", use whichever ones you need and comment out the rest.  
-
-**IMPORTANT!** Make sure to replace the `favicon.ico` under `static/images/` with one of your own, otherwise your favicon is going to be a dreambooth image of me.
-
-## What's New
-
-- Modern, clean design with better mobile support
-- Improved SEO with proper meta tags and structured data
-- Performance improvements (lazy loading, optimized assets)
-- More Works dropdown
-- Copy button for BibTeX citations
-- Better accessibility
-
-## Components
-
-- Teaser video
-- Image carousel
-- YouTube video embedding
-- Video carousel
-- PDF poster viewer
-- BibTeX citation
-
-## Customization
-
-The HTML file has TODO comments showing what to replace:
-
-- Paper title, authors, institution, conference
-- Links (arXiv, GitHub, etc.)
-- Abstract and descriptions  
-- Videos, images, and PDFs
-- Related works in the dropdown
-- Meta tags for SEO and social sharing
-
-### Meta Tags
-The template includes meta tags for better search engine visibility and social media sharing. These appear in the `<head>` section and help with:
-- Google Scholar indexing
-- Social media previews (Twitter, Facebook, LinkedIn)
-- Search engine optimization
-
-Create a 1200x630px social preview image at `static/images/social_preview.png`.
-
-## Tips
-
-- Compress images with [TinyPNG](https://tinypng.com)
-- Use YouTube for large videos (>10MB)  
-- Replace the favicon in `static/images/`
-- Works with GitHub Pages
-
-## Acknowledgments
-Parts of this project page were adopted from the [Nerfies](https://nerfies.github.io/) page.
-
-## Website License
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+## Important
+- Ensure accuracy values correspond to the selected forecasting workload. If accuracy is only available for short/medium/long GIFT-Eval regimes, map those records to the corresponding workload points or add an accuracy-regime selector before comparing.
+- Do not publish sensitive raw telemetry or excessively large files. For very large raw data, prepare a compact per-run or per-configuration CSV for the browser widget and offer the full data separately as a download.
+- If the site is hosted under a repository subpath, use relative paths that match that deployment structure.
