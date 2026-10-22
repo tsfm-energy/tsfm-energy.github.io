@@ -2,6 +2,6 @@
   "schema_version": 1,
   "description": "Manifest of model/hardware JSON measurement files loaded by the ForecastPowerBench results visualizer.",
   "files": [
-    "data/results/chronos2/RTX_5090/results.json"
+    "data/results/chronos2/RTX_5090/measurements.json"
   ]
 }
