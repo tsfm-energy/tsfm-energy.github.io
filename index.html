@@ -78,13 +78,56 @@
     .paper-figure-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.35rem; margin-top:2rem; }
     .paper-figure-card { margin:0; min-width:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 8px 24px rgba(20,32,51,.055); }
     .paper-figure-media { display:flex; align-items:center; justify-content:center; padding:1rem; background:#f8faff; border-bottom:1px solid var(--line); min-height:230px; }
-    .paper-figure-media img { display:block; width:100%; height:290px; object-fit:contain; }
+    .paper-figure-media img, .paper-figure-media object { display:block; width:100%; height:290px; object-fit:contain; border:0; background:#fff; }
+    .paper-figure-media object { pointer-events:none; }
+    .paper-figure-media { display:flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; }
+    .figure-source { display:inline-block; margin-top:.8rem; color:var(--accent); font-size:.82rem; font-weight:750; text-decoration:none; }
+    .figure-source:hover { text-decoration:underline; }
     .paper-figure-copy { padding:1.1rem 1.2rem 1.25rem; }
     .paper-figure-number { color:var(--accent); text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; font-weight:800; }
     .paper-figure-copy h3 { margin:.35rem 0 .5rem; font-size:1.04rem; font-weight:800; line-height:1.4; }
     .paper-figure-copy p { margin:0; color:var(--muted); font-size:.9rem; line-height:1.65; }
     .figure-path { display:block; margin-top:.7rem; color:#68758b; font-size:.74rem; overflow-wrap:anywhere; }
     @media(max-width:760px) { .paper-figure-grid { grid-template-columns:1fr; } .paper-figure-media img { height:auto; max-height:360px; } }
+
+    /* Futuristic, expandable current benchmark setup. Scoped to the experiment-design section. */
+    .setup-future { position:relative; overflow:hidden; background:radial-gradient(ellipse at 8% 10%,rgba(73,104,232,.15),transparent 34%),radial-gradient(ellipse at 92% 78%,rgba(22,166,161,.12),transparent 30%),#0d1728; color:#f2f6ff; }
+    .setup-future::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.15; background-image:linear-gradient(rgba(150,181,230,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(150,181,230,.18) 1px,transparent 1px); background-size:36px 36px; mask-image:linear-gradient(to bottom,black,transparent 90%); }
+    .setup-future .section-wrap { position:relative; z-index:1; }
+    .setup-future .section-kicker { color:#70d8d0; }
+    .setup-future .section-title { color:#f7f9ff; }
+    .setup-future .section-intro { color:#b8c6dc; max-width:850px; }
+    .setup-console { margin-top:2rem; overflow:hidden; border:1px solid rgba(149,178,223,.28); border-radius:20px; background:rgba(13,25,44,.78); box-shadow:0 22px 60px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.04); backdrop-filter:blur(12px); }
+    .setup-console-bar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem; padding:1rem 1.3rem; border-bottom:1px solid rgba(149,178,223,.2); background:rgba(255,255,255,.025); }
+    .setup-console-label { display:flex; align-items:center; gap:.65rem; color:#dae5fa; font-size:.72rem; font-weight:800; letter-spacing:.12em; }
+    .setup-live-dot { width:8px; height:8px; display:inline-block; border-radius:50%; background:#48dfb5; box-shadow:0 0 14px rgba(72,223,181,.8); }
+    .setup-console-tag { border:1px solid rgba(112,216,208,.35); border-radius:99px; padding:.35rem .65rem; color:#82e2d7; font-size:.66rem; font-weight:800; letter-spacing:.1em; }
+    .setup-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .setup-stat { min-width:0; padding:1.35rem 1.4rem 1.3rem; border-right:1px solid rgba(149,178,223,.15); border-bottom:1px solid rgba(149,178,223,.15); }
+    .setup-stat:nth-child(3n) { border-right:0; }
+    .setup-stat:nth-last-child(-n+3) { border-bottom:0; }
+    .setup-stat-index { display:block; color:#8fa6ca; font-size:.67rem; font-weight:800; letter-spacing:.11em; }
+    .setup-stat strong { display:block; margin:.7rem 0 .25rem; color:#fff; font-size:clamp(1.45rem,2.6vw,2rem); font-weight:800; letter-spacing:-.045em; line-height:1.2; font-variant-numeric:tabular-nums; }
+    .setup-stat strong i { color:#70d8d0; font-size:.68em; font-style:normal; letter-spacing:0; }
+    .setup-stat p { min-height:2.8em; margin:0; color:#aabbd4; font-size:.83rem; line-height:1.6; }
+    .setup-chip-row,.setup-device-row { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.9rem; }
+    .setup-chip-row span,.setup-device-row span { border:1px solid rgba(142,169,211,.24); border-radius:6px; padding:.23rem .38rem; background:rgba(255,255,255,.035); color:#d9e5f9; font-size:.67rem; font-variant-numeric:tabular-nums; }
+    .setup-device-row span { font-size:.64rem; }
+    .setup-track { height:5px; margin-top:1.15rem; overflow:hidden; border-radius:99px; background:rgba(142,169,211,.15); }
+    .setup-track span { display:block; width:100%; height:100%; border-radius:99px; background:linear-gradient(90deg,#4968e8,#70d8d0); box-shadow:0 0 18px rgba(112,216,208,.4); }
+    .setup-mini-label { margin-top:1rem; color:#70d8d0; font-size:.63rem; font-weight:800; letter-spacing:.11em; }
+    .setup-stat-highlight { background:linear-gradient(135deg,rgba(73,104,232,.15),rgba(22,166,161,.09)); }
+    .setup-expansion { display:flex; align-items:center; gap:1rem; padding:1.1rem 1.3rem; border-top:1px solid rgba(149,178,223,.18); background:linear-gradient(90deg,rgba(73,104,232,.1),rgba(22,166,161,.07)); }
+    .setup-expansion-icon { flex:0 0 38px; display:grid; place-items:center; width:38px; height:38px; border-radius:11px; border:1px solid rgba(112,216,208,.42); background:rgba(112,216,208,.08); color:#7ae4da; font-size:1.55rem; font-weight:400; }
+    .setup-expansion-copy { flex:1; }
+    .setup-expansion-copy strong { display:block; margin-bottom:.25rem; color:#f5f8ff; font-size:.95rem; }
+    .setup-expansion-copy p { max-width:760px; margin:0; color:#adbed6; font-size:.83rem; line-height:1.65; }
+    .setup-expansion-signal { display:flex; align-items:flex-end; gap:4px; height:30px; padding-left:.5rem; }
+    .setup-expansion-signal span { width:4px; border-radius:99px; background:#70d8d0; opacity:.8; }
+    .setup-expansion-signal span:nth-child(1) { height:8px; }.setup-expansion-signal span:nth-child(2) { height:14px; }.setup-expansion-signal span:nth-child(3) { height:10px; }.setup-expansion-signal span:nth-child(4) { height:21px; }.setup-expansion-signal span:nth-child(5) { height:16px; }.setup-expansion-signal span:nth-child(6) { height:26px; }.setup-expansion-signal span:nth-child(7) { height:30px; }
+    .setup-footnote { position:relative; margin-top:1rem; color:#91a4c2; font-size:.78rem; line-height:1.6; }
+    @media(max-width:800px) { .setup-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .setup-stat:nth-child(3n) { border-right:1px solid rgba(149,178,223,.15); } .setup-stat:nth-child(2n) { border-right:0; } .setup-stat:nth-last-child(-n+3) { border-bottom:1px solid rgba(149,178,223,.15); } .setup-stat:nth-last-child(-n+2) { border-bottom:0; } }
+    @media(max-width:520px) { .setup-grid { grid-template-columns:1fr; } .setup-stat,.setup-stat:nth-child(3n),.setup-stat:nth-child(2n) { border-right:0; border-bottom:1px solid rgba(149,178,223,.15); } .setup-stat:last-child { border-bottom:0; } .setup-console-bar { align-items:flex-start; flex-direction:column; } .setup-expansion { align-items:flex-start; } .setup-expansion-signal { display:none; } .setup-stat p { min-height:0; } }
 
     .figure-placeholder { display:flex; min-height:220px; align-items:center; justify-content:center; text-align:center; padding:2rem; border:1.5px dashed #cbd3e1; border-radius:16px; background:rgba(255,255,255,.7); color:#6a7588; line-height:1.7; }
     .figure-placeholder strong { color:var(--ink); display:block; margin-bottom:.3rem; }
@@ -226,44 +269,70 @@
       </div>
     </section>
 
-    <section class="section-pad" id="workloads">
-      <div class="section-wrap">
-        <div class="section-kicker">Experimental design</div>
-        <h2 class="section-title">A broad space of forecasting workloads</h2>
-        <p class="section-intro">
-          The H100 workload sweep covers 63 context–horizon configurations at batch size 512. Separate batch-size experiments examine throughput and EPF scaling across the H100, RTX 5090, RTX A6000, and Jetson AGX Orin.
-        </p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Dimension</th><th>Configurations</th><th>Purpose</th></tr></thead>
-            <tbody>
-              <tr><td>Context length</td><td>32, 64, 128, 256, 512, 1024, 2048</td><td>Study the cost of increasing historical input length.</td></tr>
-              <tr><td>Forecast horizon</td><td>1, 6, 12, 24, 48, 96, 192, 360, 720</td><td>Study the cost of producing longer forecasts.</td></tr>
-              <tr><td>Batch size</td><td>Includes a fixed batch size of 512 for the H100 workload sweep; additional batch-size experiments</td><td>Measure throughput and energy amortization as workload concurrency changes.</td></tr>
-              <tr><td>Hardware</td><td>NVIDIA H100, RTX 5090, RTX A6000, Jetson AGX Orin</td><td>Examine how observed efficiency trends transfer across platforms.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="grid-3">
-          <article class="info-card">
-            <h3>Short-term regime</h3>
-            <p><span class="pill">Context 512</span><span class="pill">Horizon 48</span></p>
-            <p>A benchmark-defined workload point used for the short forecasting regime in the accuracy–efficiency analysis.</p>
-          </article>
-          <article class="info-card">
-            <h3>Medium-term regime</h3>
-            <p><span class="pill">Context 1024</span><span class="pill">Horizon 360</span></p>
-            <p>A benchmark-defined workload point used for the medium forecasting regime.</p>
-          </article>
-          <article class="info-card">
-            <h3>Long-term regime</h3>
-            <p><span class="pill">Context 2048</span><span class="pill">Horizon 720</span></p>
-            <p>A benchmark-defined workload point used for the long forecasting regime. These are study choices, not universal definitions.</p>
-          </article>
-        </div>
-        <p class="section-intro" style="margin-top:1.2rem;font-size:.9rem">Note: model support varies by context and horizon. Infeasible configurations and out-of-memory failures should be reported rather than silently omitted.</p>
+    <section class="section-pad setup-future" id="workloads">
+  <div class="section-wrap">
+    <div class="section-kicker">Experimental design · Current setup</div>
+    <h2 class="section-title">Workload space</h2>
+    <p class="section-intro">
+      The current benchmark spans 10 TSFMs, 63 context–horizon combinations, and four NVIDIA platforms.
+      
+    </p>
+
+    <div class="setup-console">
+      <div class="setup-console-bar">
+        <div class="setup-console-label"><span class="setup-live-dot"></span> CURRENT BENCHMARK CONFIGURATION</div>
+        <span class="setup-console-tag">EXTENSIBLE</span>
       </div>
-    </section>
+      <div class="setup-grid">
+        <article class="setup-stat">
+          <span class="setup-stat-index">01 / CONTEXT LENGTH</span>
+          <strong>32 <i>→</i> 2,048</strong>
+          <p>7 tested settings</p>
+          <div class="setup-chip-row"><span>32</span><span>64</span><span>128</span><span>256</span><span>512</span><span>1,024</span><span>2,048</span></div>
+        </article>
+        <article class="setup-stat">
+          <span class="setup-stat-index">02 / FORECAST HORIZON</span>
+          <strong>1 <i>→</i> 720</strong>
+          <p>9 tested settings</p>
+          <div class="setup-chip-row"><span>1</span><span>6</span><span>12</span><span>24</span><span>48</span><span>96</span><span>192</span><span>360</span><span>720</span></div>
+        </article>
+        <article class="setup-stat">
+          <span class="setup-stat-index">03 / BATCH SIZE</span>
+          <strong>1 <i>→</i> 4,096</strong>
+          <p>Powers of two, subject to memory limits</p>
+          <div class="setup-track" aria-label="Batch size sweep from 1 to 4096"><span></span></div>
+        </article>
+        <article class="setup-stat">
+          <span class="setup-stat-index">04 / MODEL SUITE</span>
+          <strong>10 <i>models</i></strong>
+          <p>Transformer, SSM, recurrent, xLSTM, and mixer families</p>
+          <div class="setup-mini-label">ARCHITECTURE DIVERSITY</div>
+        </article>
+        <article class="setup-stat">
+          <span class="setup-stat-index">05 / HARDWARE</span>
+          <strong>4 <i>platforms</i></strong>
+          <p>Cloud, workstation, and edge deployments</p>
+          <div class="setup-device-row"><span>H100</span><span>RTX 5090</span><span>RTX A6000</span><span>AGX Orin</span></div>
+        </article>
+        <article class="setup-stat setup-stat-highlight">
+          <span class="setup-stat-index">06 / WORKLOAD SPACE</span>
+          <strong>63 <i>combinations</i></strong>
+          <p>7 context lengths × 9 horizons per sweep, where supported</p>
+          <div class="setup-mini-label">FEASIBILITY-AWARE MEASUREMENTS</div>
+        </article>
+      </div>
+      <div class="setup-expansion">
+        <div class="setup-expansion-icon" aria-hidden="true">+</div>
+        <div class="setup-expansion-copy">
+          <strong>Current setup. Open-ended roadmap.</strong>
+          <p>Add longer contexts, new horizons, batch sizes, models, or devices as the benchmark evolves.</p>
+        </div>
+        <div class="setup-expansion-signal" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <p class="setup-footnote">Configurations unsupported by a model or exceeding available memory are treated as feasibility limits, not as valid measurements.</p>
+  </div>
+</section>
 
     <section class="section-pad section-soft" id="findings">
       <div class="section-wrap">
@@ -331,210 +400,94 @@
     <div class="section-kicker">Results from the paper</div>
     <h2 class="section-title">Where workload meets system cost</h2>
     <p class="section-intro">
-      ForecastPowerBench evaluates how forecasting workloads, model architecture,
-      and hardware shape inference efficiency. The figures below summarize workload
-      scaling, batch-size behavior, resource constraints, and accuracy–efficiency trade-offs.
+      Six key figures show workload scaling, context–horizon sensitivity, cross-platform behavior,
+      and the trade-offs between forecasting quality, energy, and model scale.
     </p>
 
     <div class="paper-figure-grid">
-
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/absolute_throughput_heatmap.pdf"
-           target="_blank" rel="noopener"
-           aria-label="Open throughput figure PDF">
-          <object data="static/images/paper_figures/absolute_throughput_heatmap.pdf"
-                  type="application/pdf"
-                  aria-label="Absolute throughput across context and horizon configurations">
-            <span>PDF preview unavailable — open figure</span>
+        <a class="paper-figure-media" href="static/images/paper_figures/figure2_throughput_workload.pdf" target="_blank" rel="noopener" aria-label="Open Figure 2 PDF">
+          <object data="static/images/paper_figures/figure2_throughput_workload.pdf" type="application/pdf" aria-label="Absolute throughput across context and horizon configurations">
+            <span>PDF preview unavailable — <u>open Figure 2</u></span>
           </object>
         </a>
         <figcaption class="paper-figure-copy">
           <span class="paper-figure-number">Figure 2 · Workload scaling</span>
           <h3>Throughput across context–horizon configurations</h3>
-          <p>
-            Absolute throughput for 10 TSFMs on the NVIDIA H100 at batch size 512.
-            The results expose model-specific scaling behavior and feasibility limits.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/absolute_throughput_heatmap.pdf"
-             target="_blank" rel="noopener">Open figure PDF ↗</a>
+          <p>Absolute throughput for 10 TSFMs on the NVIDIA H100 at batch size 512. The pattern varies substantially by model and workload.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure2_throughput_workload.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
 
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/relative_energy_heatmap.pdf"
-           target="_blank" rel="noopener"
-           aria-label="Open energy per forecast figure PDF">
-          <object data="static/images/paper_figures/relative_energy_heatmap.pdf"
-                  type="application/pdf"
-                  aria-label="Energy per forecast across forecasting workloads">
-            <span>PDF preview unavailable — open figure</span>
+        <a class="paper-figure-media" href="static/images/paper_figures/figure3_epf_workload.pdf" target="_blank" rel="noopener" aria-label="Open Figure 3 PDF">
+          <object data="static/images/paper_figures/figure3_epf_workload.pdf" type="application/pdf" aria-label="Energy per forecast across forecasting workloads">
+            <span>PDF preview unavailable — <u>open Figure 3</u></span>
           </object>
         </a>
         <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 3 · Energy</span>
+          <span class="paper-figure-number">Figure 3 · Energy cost</span>
           <h3>Energy per Forecast across workloads</h3>
-          <p>
-            EPF across context lengths and forecast horizons on the NVIDIA H100
-            at batch size 512, showing how energy cost changes with workload.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/relative_energy_heatmap.pdf"
-             target="_blank" rel="noopener">Open figure PDF ↗</a>
+          <p>EPF across context lengths and forecast horizons on the NVIDIA H100 at batch size 512, revealing workload-dependent energy costs.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure3_epf_workload.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
 
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure4_relative_throughput.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure4_relative_throughput.png"
-               alt="Relative throughput across forecasting configurations, normalized per model"
-               loading="lazy">
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 4 · Relative performance</span>
-          <h3>Relative throughput across workloads</h3>
-          <p>
-            Throughput normalized by each model's maximum across evaluated workloads,
-            emphasizing within-model sensitivity rather than absolute speed.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure4_relative_throughput.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
-        </figcaption>
-      </figure>
-
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
-           target="_blank" rel="noopener">
-          <object data="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
-                  type="application/pdf"
-                  aria-label="Context and horizon sensitivity comparison">
-            <span>PDF preview unavailable — open figure</span>
+        <a class="paper-figure-media" href="static/images/paper_figures/figure5_context_horizon_sensitivity.pdf" target="_blank" rel="noopener" aria-label="Open Figure 5 PDF">
+          <object data="static/images/paper_figures/figure5_context_horizon_sensitivity.pdf" type="application/pdf" aria-label="Context and forecast horizon throughput sensitivity">
+            <span>PDF preview unavailable — <u>open Figure 5</u></span>
           </object>
         </a>
         <figcaption class="paper-figure-copy">
           <span class="paper-figure-number">Figure 5 · Sensitivity</span>
           <h3>Context length versus horizon sensitivity</h3>
-          <p>
-            Compares throughput degradation as context length and forecast horizon
-            increase. The dominant scaling dimension varies across models.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/static/elasticity_nvidia_h100.pdf"
-             target="_blank" rel="noopener">Open figure PDF ↗</a>
+          <p>Compares model sensitivity to increasing context and forecast horizon for throughput and EPF. The dominant scaling dimension differs across models.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure5_context_horizon_sensitivity.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
 
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure6_throughput_batch_hardware.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure6_throughput_batch_hardware.png"
-               alt="Inference throughput versus batch size across four hardware platforms"
-               loading="lazy">
+        <a class="paper-figure-media" href="static/images/paper_figures/figure6_throughput_batch_hardware.pdf" target="_blank" rel="noopener" aria-label="Open Figure 6 PDF">
+          <object data="static/images/paper_figures/figure6_throughput_batch_hardware.pdf" type="application/pdf" aria-label="Throughput versus batch size across four hardware platforms">
+            <span>PDF preview unavailable — <u>open Figure 6</u></span>
+          </object>
         </a>
         <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 6 · Batch scaling</span>
+          <span class="paper-figure-number">Figure 6 · Cross-platform scaling</span>
           <h3>Throughput versus batch size across platforms</h3>
-          <p>
-            Throughput across the Jetson AGX Orin, NVIDIA H100, RTX 5090, and
-            RTX A6000 for context length 512 and horizon 96.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure6_throughput_batch_hardware.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
+          <p>Compares batch-size scaling on the Jetson AGX Orin, H100, RTX 5090, and RTX A6000 for context 512 and horizon 96.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure6_throughput_batch_hardware.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
 
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure7_epf_batch_hardware.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure7_epf_batch_hardware.png"
-               alt="Energy per forecast versus batch size across four hardware platforms"
-               loading="lazy">
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 7 · Energy scaling</span>
-          <h3>EPF versus batch size across platforms</h3>
-          <p>
-            Energy per forecast under the same fixed workload, showing how batching
-            changes energy cost across deployment hardware.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure7_epf_batch_hardware.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
-        </figcaption>
-      </figure>
-
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure8_accuracy_efficiency.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure8_accuracy_efficiency.png"
-               alt="Accuracy and efficiency trade-offs across short, medium, and long forecasting regimes"
-               loading="lazy">
+        <a class="paper-figure-media" href="static/images/paper_figures/figure8_accuracy_efficiency.pdf" target="_blank" rel="noopener" aria-label="Open Figure 8 PDF">
+          <object data="static/images/paper_figures/figure8_accuracy_efficiency.pdf" type="application/pdf" aria-label="Accuracy-efficiency trade-offs across forecasting regimes">
+            <span>PDF preview unavailable — <u>open Figure 8</u></span>
+          </object>
         </a>
         <figcaption class="paper-figure-copy">
           <span class="paper-figure-number">Figure 8 · Accuracy and energy</span>
           <h3>Accuracy–efficiency trade-offs</h3>
-          <p>
-            Throughput and EPF across short (512, 48), medium (1024, 360),
-            and long (2048, 720) regimes. Bubble size represents MASE.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure8_accuracy_efficiency.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
+          <p>Throughput and EPF across short (512, 48), medium (1024, 360), and long (2048, 720) regimes; bubble size represents MASE.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure8_accuracy_efficiency.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
 
       <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure9_memory_throughput.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure9_memory_throughput.png"
-               alt="Peak GPU memory and throughput across forecasting regimes"
-               loading="lazy">
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 9 · Memory constraints</span>
-          <h3>Memory–throughput trade-offs</h3>
-          <p>
-            Compares peak GPU memory with throughput across workload regimes,
-            highlighting differences in resource requirements and feasibility.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure9_memory_throughput.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
-        </figcaption>
-      </figure>
-
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media"
-           href="static/images/paper_figures/figure10_parameter_tradeoff.png"
-           target="_blank" rel="noopener">
-          <img src="static/images/paper_figures/figure10_parameter_tradeoff.png"
-               alt="Throughput and EPF trade-offs with marker size encoding model parameter count"
-               loading="lazy">
+        <a class="paper-figure-media" href="static/images/paper_figures/figure10_parameter_tradeoff.pdf" target="_blank" rel="noopener" aria-label="Open Figure 10 PDF">
+          <object data="static/images/paper_figures/figure10_parameter_tradeoff.pdf" type="application/pdf" aria-label="Throughput-energy trade-offs and model parameter count">
+            <span>PDF preview unavailable — <u>open Figure 10</u></span>
+          </object>
         </a>
         <figcaption class="paper-figure-copy">
           <span class="paper-figure-number">Figure 10 · Model scale</span>
           <h3>Parameter count is not enough</h3>
-          <p>
-            Throughput–EPF trade-offs across short, medium, and long regimes,
-            with marker size representing model parameter count.
-          </p>
-          <a class="figure-source"
-             href="static/images/paper_figures/figure10_parameter_tradeoff.png"
-             target="_blank" rel="noopener">Open figure ↗</a>
+          <p>Throughput–EPF trade-offs across forecasting regimes, with marker size encoding parameter count. Model size alone does not determine inference cost.</p>
+          <a class="figure-source" href="static/images/paper_figures/figure10_parameter_tradeoff.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
         </figcaption>
       </figure>
-
     </div>
   </div>
 </section>
@@ -543,12 +496,12 @@
     <section class="section-pad section-soft" id="reproducibility">
       <div class="section-wrap">
         <div class="section-kicker">Reproducibility</div>
-        <h2 class="section-title">Make every result inspectable</h2>
-        <p class="section-intro">A benchmark website is most useful when readers can trace figures back to configurations, raw measurements, and documented evaluation procedures.</p>
+        <h2 class="section-title">Reproduce paper results</h2>
+        <p class="section-intro">To enable reproducibility, we provide the code, data, and documentation needed to reproduce the paper's findings.</p>
         <div class="grid-3">
           <article class="info-card">
             <h3>Code</h3>
-            <p>Publish the benchmark harness, model adapters, launch scripts, telemetry collectors, and environment instructions.</p>
+            <p>Publish the benchmarking code, model adapters, launch scripts, telemetry collectors, and environment instructions.</p>
             <p><a href="https://github.com/" target="_blank" rel="noopener">Open repository ↗</a></p>
           </article>
           <article class="info-card">
@@ -563,7 +516,7 @@
           </article>
         </div>
         <h3 style="font-size:1.2rem;font-weight:800;margin-top:2.4rem">Cite ForecastPowerBench</h3>
-        <p style="color:var(--muted);line-height:1.7">Citation details can be added when the paper’s authorship and publication venue are finalized.</p>
+        <p style="color:var(--muted);line-height:1.7">Citation details hidden for peer review.</p>
         <pre class="code-box"><code>@inproceedings{forecastpowerbench,
   title     = {ForecastPowerBench: Benchmarking the Inference Efficiency of Time Series Foundation Models},
   author    = {ForecastPowerBench authors},
