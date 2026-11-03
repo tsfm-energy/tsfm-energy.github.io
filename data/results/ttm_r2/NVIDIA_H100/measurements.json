@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "model_id": "ttm_r2",
+  "model_name": "ttm_r2",
+  "hardware": "NVIDIA_H100",
+  "hardware_name": "NVIDIA H100",
+  "num_measurements": 1,
+  "measurements": [
+    {
+      "context_len": 512,
+      "horizon_len": 96,
+      "batch_size": 512,
+      "throughput_windows_per_sec_mean": 164141.24002802,
+      "energy_per_window_j_mean": 0.0010854439601995,
+      "peak_gpu_memory_used_gb_mean": 1.3194580078125,
+      "throughput_points_per_sec_mean": 15757559.0426899,
+      "e2e_latency_ms_mean": 3.1194175966084,
+      "latency_per_window_ms_mean": 0.0060926124933757,
+      "model_call_duration_sec_mean": 0.933641595765948,
+      "avg_power_w_mean": 178.160507842159,
+      "dynamic_avg_power_w_mean": 65.0574766356021,
+      "total_energy_j_mean": 166.724192286645,
+      "dynamic_energy_j_mean": 60.8791641795289,
+      "peak_gpu_allocated_gb_mean": 0.073702335357666,
+      "peak_cpu_ram_gb_mean": 1.67488861083984,
+      "avg_gpu_compute_util_percent_mean": 41.3245614035088,
+      "avg_gpu_memory_util_percent_mean": 1.65662281293297,
+      "energy_per_1k_points_j_mean": 0.0113067079187449,
+      "dynamic_energy_per_1k_points_j_mean": 0.0041286325534077,
+      "peak_power_w_mean": 180.069,
+      "power_p95_w_mean": 180.069,
+      "power_p50_w_mean": 178.544,
+      "avg_gpu_temp_c_mean": 32.9473684210526,
+      "max_gpu_temp_c_mean": 33.0
+    }
+  ]
+}
