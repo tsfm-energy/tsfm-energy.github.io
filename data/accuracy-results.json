@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "description": "GIFT-Eval median MASE references for the representative ForecastPowerBench short, medium, and long workloads. Accuracy is independent of hardware.",
+  "metric": "median_MASE",
+  "source_file": "aggregated_accuracy_exact_horizons_48_480_720_with_crps.csv",
+  "records": [
+    {
+      "model": "Chronos-2",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.7784342503824689,
+      "n_valid": 23
+    },
+    {
+      "model": "FlowState",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.794888521288021,
+      "n_valid": 23
+    },
+    {
+      "model": "Kairos",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.848947814,
+      "n_valid": 23
+    },
+    {
+      "model": "Moirai-2",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.7664317488670349,
+      "n_valid": 23
+    },
+    {
+      "model": "Sundial",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.7869252373242515,
+      "n_valid": 23
+    },
+    {
+      "model": "TempoPFN",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.8084784636610177,
+      "n_valid": 23
+    },
+    {
+      "model": "TimesFM 2.5",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.7336225635960946,
+      "n_valid": 23
+    },
+    {
+      "model": "TiRex",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.744055301637309,
+      "n_valid": 23
+    },
+    {
+      "model": "Toto",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.8282911464,
+      "n_valid": 23
+    },
+    {
+      "model": "TTM-R3",
+      "regime": "short",
+      "context_len": 512,
+      "horizon_len": 48,
+      "source_gift_horizon": 48,
+      "median_mase": 0.7995016088470455,
+      "n_valid": 23
+    },
+    {
+      "model": "Chronos-2",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.8487085901964821,
+      "n_valid": 19
+    },
+    {
+      "model": "FlowState",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.8764719755896929,
+      "n_valid": 19
+    },
+    {
+      "model": "Kairos",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.906346837,
+      "n_valid": 19
+    },
+    {
+      "model": "Moirai-2",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.9195600748062134,
+      "n_valid": 19
+    },
+    {
+      "model": "Sundial",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.8685233040993711,
+      "n_valid": 19
+    },
+    {
+      "model": "TempoPFN",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 1.0259451011656044,
+      "n_valid": 19
+    },
+    {
+      "model": "TimesFM 2.5",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.8656848904607868,
+      "n_valid": 19
+    },
+    {
+      "model": "TiRex",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.880264287103265,
+      "n_valid": 19
+    },
+    {
+      "model": "Toto",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.9225758172,
+      "n_valid": 19
+    },
+    {
+      "model": "TTM-R3",
+      "regime": "medium",
+      "context_len": 1024,
+      "horizon_len": 360,
+      "source_gift_horizon": 480,
+      "median_mase": 0.8852994671669645,
+      "n_valid": 19
+    },
+    {
+      "model": "Chronos-2",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.8903270215343758,
+      "n_valid": 19
+    },
+    {
+      "model": "FlowState",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.9201987421572888,
+      "n_valid": 19
+    },
+    {
+      "model": "Kairos",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.952142182,
+      "n_valid": 19
+    },
+    {
+      "model": "Moirai-2",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.928242027759552,
+      "n_valid": 19
+    },
+    {
+      "model": "Sundial",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.9212435305526608,
+      "n_valid": 19
+    },
+    {
+      "model": "TempoPFN",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 1.1207445037710384,
+      "n_valid": 19
+    },
+    {
+      "model": "TimesFM 2.5",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.9039245531589026,
+      "n_valid": 19
+    },
+    {
+      "model": "TiRex",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.915079747536741,
+      "n_valid": 19
+    },
+    {
+      "model": "Toto",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.9574328268,
+      "n_valid": 19
+    },
+    {
+      "model": "TTM-R3",
+      "regime": "long",
+      "context_len": 2048,
+      "horizon_len": 720,
+      "source_gift_horizon": 720,
+      "median_mase": 0.924041727779464,
+      "n_valid": 19
+    }
+  ],
+  "record_schema": {
+    "model": "Chronos-2",
+    "regime": "short",
+    "context_len": 512,
+    "horizon_len": 48,
+    "source_gift_horizon": 48,
+    "median_mase": 0.75,
+    "n_valid": 20
+  },
+  "source_horizon_mapping": {
+    "48": {
+      "regime": "short",
+      "context_len": 512,
+      "target_horizon_len": 48
+    },
+    "480": {
+      "regime": "medium",
+      "context_len": 1024,
+      "target_horizon_len": 360
+    },
+    "720": {
+      "regime": "long",
+      "context_len": 2048,
+      "target_horizon_len": 720
+    }
+  },
+  "note": "MASE is lower-is-better. `source_gift_horizon` records the GIFT-Eval aggregation horizon. In particular, source horizon 480 is used as the available medium-regime accuracy reference for the ForecastPowerBench workload (context=1024, horizon=360). The ranker matches records by model, context_len, and horizon_len; do not change this mapping unless the benchmark workload definition changes."
+}

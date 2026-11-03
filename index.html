@@ -156,6 +156,25 @@
     .ranker-status.error { background:#fff3f1; color:#9b3022; }
     .ranker-status.ok { background:#effaf6; color:#21634b; }
     .ranker-note { color:var(--muted); font-size:.86rem; line-height:1.7; margin-top:1rem; }
+    .alpha-ranker { margin-top:1.6rem; padding:1.35rem; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,#fbfcff,#f4f7ff); }
+    .alpha-heading { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1rem; }
+    .alpha-kicker { color:var(--accent); font-size:.7rem; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
+    .alpha-heading h3 { margin:.25rem 0 .35rem; font-size:1.2rem; font-weight:850; }
+    .alpha-heading p { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
+    .alpha-hardware { padding:.55rem .75rem; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--muted); font-size:.78rem; }
+    .alpha-hardware strong { display:block; margin-top:.15rem; color:var(--ink); font-size:.95rem; }
+    .alpha-slider-panel { padding:1rem 1.1rem; border:1px solid #dfe6f5; border-radius:12px; background:#fff; }
+    .alpha-slider-panel label { display:flex; justify-content:space-between; gap:1rem; font-size:.9rem; font-weight:800; }
+    .alpha-slider-panel label strong { color:var(--accent); font-variant-numeric:tabular-nums; }
+    .alpha-slider-panel input[type=range] { width:100%; margin:.85rem 0 .25rem; accent-color:var(--accent); cursor:pointer; }
+    .alpha-endpoints { display:flex; justify-content:space-between; gap:.5rem; color:var(--muted); font-size:.74rem; }
+    .alpha-slider-panel > p { margin:.65rem 0 0; color:var(--muted); font-size:.8rem; }
+    .alpha-ranking-content { margin-top:1.15rem; }
+    .alpha-table-wrap { margin-top:1rem; }
+    .alpha-table { min-width:850px; }
+    .alpha-table tr.top-ranked td { background:#eef4ff; }
+    @media(max-width:700px) { .alpha-ranker { padding:1rem; } .alpha-endpoints { font-size:.67rem; } }
+
     .ranking-chart { display:flex; flex-direction:column; gap:.9rem; }
     .ranking-row { display:grid; grid-template-columns:minmax(90px,125px) minmax(60px,1fr) auto; align-items:center; gap:.65rem; }
     .ranking-model { font-size:.84rem; font-weight:750; overflow-wrap:anywhere; }
@@ -388,6 +407,33 @@
               </article>
             </div>
             <div class="ranker-table-wrap" style="margin-top:1.25rem"><table class="ranker-table"><thead><tr><th>Model</th><th>Throughput rank</th><th>Throughput (windows/s)</th><th>EPF rank</th><th>EPF (J/forecast)</th><th>Peak GPU memory (GB)</th></tr></thead><tbody id="ranker-table-body"><tr><td colspan="6">Loading data…</td></tr></tbody></table></div>
+            <section class="alpha-ranker" aria-labelledby="alpha-ranking-title">
+              <div class="alpha-heading">
+                <div>
+                  <span class="alpha-kicker">Accuracy–efficiency trade-off</span>
+                  <h3 id="alpha-ranking-title">Combined model ranking</h3>
+                  <p>Keep the hardware selection above, then tune the balance between throughput and forecasting accuracy.</p>
+                </div>
+                <div class="alpha-hardware">Selected hardware <strong id="alpha-hardware-label">—</strong></div>
+              </div>
+              <div class="alpha-slider-panel">
+                <label for="alpha-slider"><span>Throughput weight (α)</span><strong id="alpha-value">0.50</strong></label>
+                <input id="alpha-slider" type="range" min="0" max="1" step="0.01" value="0.50" aria-describedby="alpha-formula">
+                <div class="alpha-endpoints"><span>0 · Accuracy only</span><span>Balanced</span><span>1 · Throughput only</span></div>
+                <p id="alpha-formula">Score = α × normalized throughput + (1 − α) × normalized accuracy utility.</p>
+              </div>
+              <div class="alpha-ranking-content">
+                <div id="alpha-chart" class="ranking-chart"><p class="ranker-note">Waiting for system and accuracy data…</p></div>
+                <div class="ranker-table-wrap alpha-table-wrap">
+                  <table class="ranker-table alpha-table">
+                    <thead><tr><th>Rank</th><th>Model</th><th>Throughput</th><th>Normalized throughput</th><th>MASE</th><th>Accuracy utility</th><th>Combined score</th></tr></thead>
+                    <tbody id="alpha-table-body"><tr><td colspan="7">Loading accuracy data…</td></tr></tbody>
+                  </table>
+                </div>
+                <div id="alpha-status" class="ranker-status" role="status" aria-live="polite">Composite ranking uses selected hardware, context, horizon, and batch size.</div>
+                <p class="ranker-note">Throughput is min–max normalized (higher is better). MASE is min–max normalized in reverse (lower is better). Normalization is performed over models with both measurements for the selected workload. Accuracy is matched by model, context, and horizon; it is not hardware-specific.</p>
+              </div>
+            </section>
             <div id="ranker-status" class="ranker-status" role="status" aria-live="polite">Loading JSON result files from the manifest.</div>
             <p class="ranker-note">Rankings are calculated separately for each metric and selected workload. Models missing a measurement for the selected context, horizon, hardware, or batch size are not included. EPF uses the energy-per-window field provided by the result file; confirm that its measurement scope is consistent across devices before comparing hardware platforms.</p>
           </div>
