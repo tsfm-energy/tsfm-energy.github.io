@@ -412,7 +412,7 @@
                 <div>
                   <span class="alpha-kicker">Accuracy–efficiency trade-off</span>
                   <h3 id="alpha-ranking-title">Combined model ranking</h3>
-                  <p>Keep the hardware selection above, then tune the balance between throughput and forecasting accuracy.</p>
+                  <p>Select hardware and workload above, then balance throughput against representative forecasting accuracy.</p>
                 </div>
                 <div class="alpha-hardware">Selected hardware <strong id="alpha-hardware-label">—</strong></div>
               </div>
@@ -426,16 +426,16 @@
                 <div id="alpha-chart" class="ranking-chart"><p class="ranker-note">Waiting for system and accuracy data…</p></div>
                 <div class="ranker-table-wrap alpha-table-wrap">
                   <table class="ranker-table alpha-table">
-                    <thead><tr><th>Rank</th><th>Model</th><th>Throughput</th><th>Normalized throughput</th><th>MASE</th><th>Accuracy utility</th><th>Combined score</th></tr></thead>
+                    <thead><tr><th>Rank</th><th>Model</th><th>Throughput</th><th>Normalized throughput</th><th>Representative MASE</th><th>Accuracy utility</th><th>Combined score</th></tr></thead>
                     <tbody id="alpha-table-body"><tr><td colspan="7">Loading accuracy data…</td></tr></tbody>
                   </table>
                 </div>
-                <div id="alpha-status" class="ranker-status" role="status" aria-live="polite">Composite ranking uses selected hardware, context, horizon, and batch size.</div>
-                <p class="ranker-note">Throughput is min–max normalized (higher is better). MASE is min–max normalized in reverse (lower is better). Normalization is performed over models with both measurements for the selected workload. Accuracy is matched by model, context, and horizon; it is not hardware-specific.</p>
+                <div id="alpha-status" class="ranker-status" role="status" aria-live="polite">Composite ranking combines hardware-specific throughput with representative GIFT-Eval accuracy.</div>
+                <p class="ranker-note">Throughput is min–max normalized (higher is better); MASE is normalized in reverse (lower is better). MASE is aggregated once per model for each broad Short/Medium/Long regime. For every selected workload, the visualizer assigns the nearest regime anchor using both context length and horizon (normalized log-distance), then reuses that regime-level MASE across the corresponding workload region. It is a representative accuracy reference, not an exact per-workload score; accuracy can vary with domain, dataset, and sampling frequency. Throughput remains specific to the selected hardware and workload.</p>
               </div>
             </section>
             <div id="ranker-status" class="ranker-status" role="status" aria-live="polite">Loading JSON result files from the manifest.</div>
-            <p class="ranker-note">Rankings are calculated separately for each metric and selected workload. Models missing a measurement for the selected context, horizon, hardware, or batch size are not included. EPF uses the energy-per-window field provided by the result file; confirm that its measurement scope is consistent across devices before comparing hardware platforms.</p>
+            <p class="ranker-note">Rankings are calculated separately for each metric and selected workload. Models missing a measurement for the selected hardware, context, horizon, or batch size are not included. EPF uses the energy-per-window field provided by each result file.</p>
           </div>
         </div>
       </div>

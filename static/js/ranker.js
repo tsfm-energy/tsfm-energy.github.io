@@ -114,29 +114,34 @@ function fpbChart(containerId, ranked, metric, lowerIsBetter=false) {
     return `<div class="ranking-row"><div class="ranking-model"><span class="ranking-position">${i+1}</span>${fpbEscape(item.model)}</div><div class="ranking-track" aria-label="${fpbEscape(item.model)} ${metric}: ${fpbFmt(item.value)}"><div class="ranking-bar ${lowerIsBetter?'epf':''}" style="width:${pct}%"></div></div><div class="ranking-value">${fpbFmt(item.value)}</div></div>`;
   }).join('');
 }
-// Accuracy is an external GIFT-Eval reference (median MASE), independent of target hardware.
-// It is joined by model + context + horizon; no accuracy value is inferred for unmatched workloads.
+// Accuracy is an aggregated GIFT-Eval median MASE, stored once per model/regime.
+// It is deliberately NOT joined on exact context_len/horizon_len. For any selected
+// system workload, the nearest Short/Medium/Long anchor is found in normalized log
+// space across BOTH context and horizon, and that regime-level MASE is reused across
+// the corresponding broad region. Throughput is still matched to the exact system
+// workload and selected hardware.
 let fpbAccuracyRows = [], fpbAccuracyLoadMessage = 'Accuracy file not loaded.';
 async function fpbLoadAccuracyResults() {
   try {
     const json = await fpbFetchJSON(FPB_ACCURACY_INDEX);
     const rows = fpbFlattenJSON(json, {source_file:FPB_ACCURACY_INDEX}, []);
     fpbAccuracyLoadMessage = rows.length
-      ? `Loaded ${rows.length} accuracy record(s) from ${FPB_ACCURACY_INDEX}.`
+      ? `Loaded ${rows.length} aggregated accuracy record(s) from ${FPB_ACCURACY_INDEX}.`
       : `${FPB_ACCURACY_INDEX} is present but contains no accuracy records yet.`;
     return rows;
   } catch (error) {
-    fpbAccuracyLoadMessage = `Accuracy data unavailable (${FPB_ACCURACY_INDEX}). Add GIFT-Eval median MASE records to enable the alpha ranking.`;
+    fpbAccuracyLoadMessage = `Accuracy data unavailable (${FPB_ACCURACY_INDEX}). Add aggregated GIFT-Eval median MASE records to enable the alpha ranking.`;
     return [];
   }
 }
 function fpbCanonicalModel(name) {
   const key = fpbNormKey(name);
   const aliases = {
-    chronos2:'chronos2', flowstate:'flowstate', flowstater1:'flowstate',
-    kairos:'kairos', moirai2:'moirai2', moirai20:'moirai2',
-    toto:'toto', tirex:'tirex', sundial:'sundial', tempopfn:'tempopfn',
-    ttmr3:'ttmr3', timesfm:'timesfm25', timesfm25:'timesfm25', timesfm250:'timesfm25'
+    chronos2:'chronos2', flowstate:'flowstate', flowstater1:'flowstate', flowstate91m:'flowstate',
+    kairos:'kairos', kairos23m:'kairos', moirai2:'moirai2', moirai20:'moirai2',
+    toto:'toto', totoopenbase10:'toto', tirex:'tirex', sundial:'sundial', sundialbase128m:'sundial',
+    tempopfn:'tempopfn', ttmr3:'ttmr3', ttmr3r3:'ttmr3',
+    timesfm:'timesfm25', timesfm25:'timesfm25', timesfm250:'timesfm25'
   };
   return aliases[key] || key;
 }
@@ -146,22 +151,59 @@ function fpbMedian(values) {
   const mid = Math.floor(sorted.length / 2);
   return sorted.length % 2 ? sorted[mid] : (sorted[mid-1] + sorted[mid]) / 2;
 }
-function fpbAccuracyWorkloadMatches(row, filters) {
-  const c = fpbValue(row, fpbAliases.context), h = fpbValue(row, fpbAliases.horizon);
-  if (c !== null && h !== null) return c === Number(filters.context) && h === Number(filters.horizon);
+const FPB_ACCURACY_REFERENCE_WORKLOADS = [
+  {regime:'short', context:512, horizon:48},
+  {regime:'medium', context:1024, horizon:360},
+  {regime:'long', context:2048, horizon:720}
+];
+// The three paper regimes define representative anchors, not exact accuracy points.
+// Nearest-anchor assignment partitions the full context–horizon space into broad
+// regions. Log scaling handles multiplicative workload changes; both dimensions
+// contribute equally after normalization to their evaluated ranges.
+const FPB_CONTEXT_LOG_SPAN = Math.log(2048 / 32);
+const FPB_HORIZON_LOG_SPAN = Math.log(720 / 1);
+function fpbAccuracyReferenceForWorkload(selectedContext, selectedHorizon) {
+  const context = Number(selectedContext), horizon = Number(selectedHorizon);
+  if (!Number.isFinite(context) || context <= 0 || !Number.isFinite(horizon) || horizon <= 0) {
+    return FPB_ACCURACY_REFERENCE_WORKLOADS[0];
+  }
+  const distance = ref => Math.hypot(
+    Math.log(context / ref.context) / FPB_CONTEXT_LOG_SPAN,
+    Math.log(horizon / ref.horizon) / FPB_HORIZON_LOG_SPAN
+  );
+  return FPB_ACCURACY_REFERENCE_WORKLOADS.reduce((best, ref) =>
+    distance(ref) < distance(best) ? ref : best
+  );
+}
+function fpbAccuracyRegime(row) {
   const regime = fpbNormKey(fpbText(row, ['regime','workload']) || '');
-  const regimePoints = {short:[512,48], shortterm:[512,48], medium:[1024,360], mediumterm:[1024,360], long:[2048,720], longterm:[2048,720]};
-  const point = regimePoints[regime];
-  return !!point && point[0] === Number(filters.context) && point[1] === Number(filters.horizon);
+  if (['short','shortterm'].includes(regime)) return 'short';
+  if (['medium','mediumterm'].includes(regime)) return 'medium';
+  if (['long','longterm'].includes(regime)) return 'long';
+  // Backward-compatible inference for files that store only representative anchors.
+  const c = fpbValue(row, fpbAliases.context), h = fpbValue(row, fpbAliases.horizon);
+  if (c === 512 && h === 48) return 'short';
+  if (c === 1024 && (h === 360 || h === 480)) return 'medium';
+  if (c === 2048 && h === 720) return 'long';
+  return null;
 }
 function fpbAccuracyForModel(model, filters) {
   const key = fpbCanonicalModel(model);
-  const candidates = [...fpbRows, ...fpbAccuracyRows].filter(row =>
+  const reference = fpbAccuracyReferenceForWorkload(filters.context, filters.horizon);
+  const candidates = fpbAccuracyRows.filter(row =>
     fpbCanonicalModel(fpbText(row, fpbAliases.model) || '') === key &&
-    fpbValue(row, fpbAliases.accuracy) !== null &&
-    fpbAccuracyWorkloadMatches(row, filters)
+    fpbAccuracyRegime(row) === reference.regime &&
+    fpbValue(row, fpbAliases.accuracy) !== null
   );
-  return fpbMedian(candidates.map(row => fpbValue(row, fpbAliases.accuracy)));
+  const mase = fpbMedian(candidates.map(row => fpbValue(row, fpbAliases.accuracy)));
+  return mase === null ? null : {
+    mase,
+    regime:reference.regime,
+    referenceHorizon:reference.horizon,
+    referenceContext:reference.context,
+    sourceGiftHorizon:fpbValue(candidates[0] || {}, ['source_gift_horizon']),
+    accuracyScope:'aggregated_regime_reference'
+  };
 }
 function fpbUpdateAlphaRanking(filters, systemRows) {
   const slider = document.getElementById('alpha-slider');
@@ -179,14 +221,14 @@ function fpbUpdateAlphaRanking(filters, systemRows) {
   const comparable = systemRows.map(row => ({
     model:row.model,
     throughput:row.throughput,
-    mase:fpbAccuracyForModel(row.model, filters)
-  })).filter(row => Number.isFinite(row.throughput) && row.mase !== null && Number.isFinite(row.mase));
+    accuracy:fpbAccuracyForModel(row.model, filters)
+  })).map(row => ({...row, mase:row.accuracy ? row.accuracy.mase : null})).filter(row => Number.isFinite(row.throughput) && row.mase !== null && Number.isFinite(row.mase));
 
   if (!comparable.length) {
-    tableBody.innerHTML = '<tr><td colspan="7">No models have both throughput and matching MASE accuracy for this workload.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="7">No models have both throughput and a representative MASE reference for this workload.</td></tr>';
     chart.innerHTML = '<p class="ranker-note">' + fpbEscape(fpbAccuracyLoadMessage) + '</p>';
     statusEl.className = 'ranker-status';
-    statusEl.textContent = `Select a workload with an accuracy record. Current comparison: ${filters.context} context / ${filters.horizon} horizon on ${filters.device}. Accuracy is matched by model and workload; hardware does not alter the GIFT-Eval accuracy reference.`;
+    statusEl.textContent = `No regime-level aggregated MASE is available for the selected models. Current system workload: context ${filters.context}, horizon ${filters.horizon}, hardware ${filters.device}. Accuracy is assigned by nearest Short/Medium/Long anchor across context and horizon and is independent of hardware.`;
     return;
   }
 
@@ -213,7 +255,8 @@ function fpbUpdateAlphaRanking(filters, systemRows) {
   ).join('');
 
   statusEl.className = 'ranker-status ok';
-  statusEl.textContent = `Ranked ${comparable.length} model(s) on ${filters.device}. α = ${alpha.toFixed(2)} weights normalized throughput; (1 − α) weights normalized MASE utility. ${fpbAccuracyLoadMessage}`;
+  const accuracyReference = fpbAccuracyReferenceForWorkload(filters.context, filters.horizon);
+  statusEl.textContent = `Ranked ${comparable.length} model(s) on ${filters.device}. α = ${alpha.toFixed(2)} weights normalized throughput; (1 − α) weights normalized MASE utility. The selected workload (context ${filters.context}, horizon ${filters.horizon}) uses the aggregated ${accuracyReference.regime} MASE reference (anchor ${accuracyReference.context}/${accuracyReference.horizon}) across its nearest-anchor region. MASE is a representative regime-level accuracy value, not an exact score for this workload.`;
 }
 
 function fpbUpdateVisuals() {
