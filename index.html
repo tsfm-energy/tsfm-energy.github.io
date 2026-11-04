@@ -97,6 +97,35 @@
       .paper-figure-card:hover { transform:none; }
     }
 
+
+    /* Dedicated software measurement and GPU-energy methodology section. */
+    .measurement-intro { max-width:880px; }
+    .measurement-scope-banner { display:flex; align-items:flex-start; gap:1rem; margin-top:1.6rem; padding:1.15rem 1.25rem; border:1px solid #cfe7e4; border-radius:15px; background:linear-gradient(110deg,#effaf8,#f7fbff); }
+    .measurement-scope-mark { flex:0 0 38px; display:grid; place-items:center; width:38px; height:38px; border-radius:11px; background:#dff4ef; color:#14766f; font-size:1.1rem; font-weight:900; }
+    .measurement-scope-banner strong { display:block; color:#164f4b; font-size:.96rem; margin-bottom:.25rem; }
+    .measurement-scope-banner p { margin:0; color:#426a68; font-size:.87rem; line-height:1.7; }
+    .measurement-flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.85rem; margin-top:1.7rem; }
+    .measurement-step { position:relative; padding:1.1rem; border:1px solid var(--line); border-radius:15px; background:#fff; min-width:0; }
+    .measurement-step-no { display:grid; place-items:center; width:30px; height:30px; border-radius:9px; background:#eef1ff; color:#4057bd; font-size:.78rem; font-weight:850; }
+    .measurement-step h3 { margin:.8rem 0 .4rem; font-size:.96rem; font-weight:850; }
+    .measurement-step p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.65; }
+    .measurement-step:not(:last-child)::after { content:""; position:absolute; top:1.95rem; right:-.85rem; z-index:2; width:.85rem; height:1px; background:#b8c5e0; }
+    .measurement-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1.2rem; }
+    .measurement-detail { padding:1.2rem 1.25rem; border:1px solid var(--line); border-radius:16px; background:#fff; }
+    .measurement-detail h3 { margin:0 0 .55rem; font-size:1.02rem; font-weight:850; }
+    .measurement-detail p,.measurement-detail li { color:var(--muted); font-size:.87rem; line-height:1.7; }
+    .measurement-detail ul { margin:.55rem 0 0 1.1rem; }
+    .measurement-formula-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1.35rem; }
+    .measurement-formula { padding:1.25rem; border:1px solid #dfe6f5; border-radius:16px; background:#fff; }
+    .measurement-formula .formula-label { display:block; color:var(--accent); font-size:.7rem; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
+    .measurement-formula h3 { margin:.4rem 0 .45rem; font-size:1rem; font-weight:850; }
+    .measurement-equation { margin:.75rem 0; padding:.85rem 1rem; border-radius:10px; background:#111b2b; color:#f1f5ff; font:700 .95rem ui-monospace,SFMono-Regular,Consolas,monospace; overflow-wrap:anywhere; }
+    .measurement-formula p { margin:0; color:var(--muted); font-size:.83rem; line-height:1.65; }
+    .measurement-caveat { margin-top:1.2rem; padding:1rem 1.15rem; border-left:4px solid #d58b43; border-radius:0 12px 12px 0; background:#fff8ee; color:#76532d; font-size:.84rem; line-height:1.7; }
+    .measurement-foot { margin-top:1rem; color:var(--muted); font-size:.8rem; line-height:1.65; }
+    @media(max-width:850px) { .measurement-flow { grid-template-columns:repeat(2,minmax(0,1fr)); } .measurement-step:nth-child(2)::after { display:none; } }
+    @media(max-width:600px) { .measurement-detail-grid,.measurement-formula-grid { grid-template-columns:1fr; } .measurement-flow { grid-template-columns:1fr; } .measurement-step::after { display:none !important; } .measurement-scope-banner { padding:1rem; } }
+
     /* Futuristic, expandable current benchmark setup. Scoped to the experiment-design section. */
     .setup-future { position:relative; overflow:hidden; background:radial-gradient(ellipse at 8% 10%,rgba(73,104,232,.15),transparent 34%),radial-gradient(ellipse at 92% 78%,rgba(22,166,161,.12),transparent 30%),#0d1728; color:#f2f6ff; }
     .setup-future::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.15; background-image:linear-gradient(rgba(150,181,230,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(150,181,230,.18) 1px,transparent 1px); background-size:36px 36px; mask-image:linear-gradient(to bottom,black,transparent 90%); }
@@ -241,6 +270,7 @@
       <div class="nav-links">
         <a href="#overview">Overview</a>
         <a href="#methodology">Methodology</a>
+        <a href="#measurement-setup">Measurement setup</a>
         <a href="#workloads">Workloads</a>
         <a href="#findings">Findings</a>
         <a href="#ranker">Results explorer</a>
@@ -307,31 +337,151 @@
       <div class="section-wrap">
         <div class="section-kicker">Measurement framework</div>
         <h2 class="section-title">What does ForecastPowerBench measure?</h2>
-        <p class="section-intro">Each model runs through its native inference implementation while a common measurement workflow associates system measurements with the model, workload, and hardware configuration.</p>
+        <p class="section-intro">ForecastPowerBench combines software-instrumented inference measurements with GPU-device telemetry. Throughput and timing are measured around the benchmark execution path; energy is reported from the GPU power domain only, not as whole-machine or wall-plug energy.</p>
         <div class="metric-grid">
           <div class="metric"><strong>Throughput</strong><span>Forecast windows processed per second; optionally report forecast points per second.</span></div>
-          <div class="metric"><strong>Energy per Forecast (EPF)</strong><span>Total measured inference energy divided by the number of forecasts processed.</span></div>
+          <div class="metric"><strong>Energy per Forecast (EPF)</strong><span>GPU-reported energy during the measurement interval divided by the number of forecast windows completed.</span></div>
           <div class="metric"><strong>Peak memory</strong><span>Maximum observed memory use within the documented measurement scope.</span></div>
-          <div class="metric"><strong>Power</strong><span>Power telemetry from the supported device or measurement boundary, reported with its scope.</span></div>
+          <div class="metric"><strong>GPU power</strong><span>Power telemetry from the GPU-reported measurement domain; it is not a measurement of total system power.</span></div>
         </div>
         <div class="callout">
-          <strong>Measurement scope matters.</strong> GPU telemetry, CPU package energy, board-level measurements, and whole-system wall-power measurements are not interchangeable. Each result should identify the sensor, sampling method, and measurement boundary used.
+          <strong>Energy measurement scope.</strong> The current benchmark reports GPU-domain energy from software-accessible device telemetry. It does not measure CPU energy, display, storage, fans, peripherals, or total system/wall-plug energy. GPU power readings should not be interpreted as whole-machine energy consumption.
         </div>
         <div class="grid-2">
           <div class="info-card">
             <h3>Energy per Forecast</h3>
-            <p>For a measurement interval, EPF is defined as total inference energy divided by the number of forecast windows processed.</p>
-            <div class="code-box" style="margin-top:1rem">EPF = E_total / N_forecasts</div>
+            <p>EPF is the GPU-reported energy consumed during the timed inference interval, normalized by the number of forecast windows completed in that interval.</p>
+            <div class="code-box" style="margin-top:1rem">EPF (J/window) = E_GPU / N_windows</div>
           </div>
           <div class="info-card">
             <h3>Fair comparisons</h3>
-            <p>Document warm-up, timing boundaries, batch size, context and horizon, precision, model availability, and telemetry scope. Report variability across repeated runs where available.</p>
+            <p>Record the workload configuration, warm-up policy, measurement duration, repeat identifiers, power mode, telemetry scope, and run status. Report variability across repeated measurements.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section-pad setup-future" id="workloads">
+    
+<section class="section-pad section-soft" id="measurement-setup">
+  <div class="section-wrap">
+    <div class="section-kicker">Experimental protocol · Measurement setup</div>
+    <h2 class="section-title">How system measurements are collected</h2>
+    <p class="section-intro measurement-intro">
+      ForecastPowerBench uses software-level instrumentation around model inference, together with
+      GPU-device telemetry. Each result is associated with a specific model, execution device,
+      context length, forecast horizon, batch size, and benchmark configuration.
+    </p>
+
+    <div class="measurement-scope-banner">
+      <div class="measurement-scope-mark" aria-hidden="true">GPU</div>
+      <div>
+        <strong>Important: energy is GPU-domain only</strong>
+        <p>
+          EPF is calculated from GPU-reported power/energy telemetry during the measured inference
+          interval. This is not whole-machine energy: CPU, system memory outside the GPU,
+          motherboard, storage, display, cooling fans, peripherals, and wall-plug losses are not
+          included. Throughput and timing, by contrast, are measured in software around the
+          benchmark execution path.
+        </p>
+      </div>
+    </div>
+
+    <div class="measurement-flow" aria-label="Measurement workflow">
+      <article class="measurement-step">
+        <span class="measurement-step-no">01</span>
+        <h3>Configure the workload</h3>
+        <p>Specify model, execution device, context length, forecast horizon, batch size, dataset, and run settings. The configuration is recorded with the result.</p>
+      </article>
+      <article class="measurement-step">
+        <span class="measurement-step-no">02</span>
+        <h3>Warm up the model</h3>
+        <p>Run the configured warm-up before collecting measurements. Warm-up scope and batch/window counts are recorded separately from measured work.</p>
+      </article>
+      <article class="measurement-step">
+        <span class="measurement-step-no">03</span>
+        <h3>Measure inference</h3>
+        <p>Software instrumentation records the measurement duration and the forecast windows processed. GPU telemetry is sampled over the corresponding measurement interval.</p>
+      </article>
+      <article class="measurement-step">
+        <span class="measurement-step-no">04</span>
+        <h3>Repeat and aggregate</h3>
+        <p>Measurements are repeated for a configuration. The result files retain repeat/completion information and report mean, standard deviation, and confidence intervals where available.</p>
+      </article>
+    </div>
+
+    <div class="measurement-detail-grid">
+      <article class="measurement-detail">
+        <h3>Software-level performance measurements</h3>
+        <p>
+          Timing is collected by the benchmark software rather than an external power meter or
+          hardware logic analyzer. The benchmark records the end-to-end measurement duration and
+          completed forecast windows. It also records model-call timing and throughput separately
+          where available, allowing model execution to be distinguished from surrounding pipeline
+          overhead.
+        </p>
+        <ul>
+          <li><strong>End-to-end throughput:</strong> completed forecast windows per second over the measured execution interval.</li>
+          <li><strong>Model-call throughput:</strong> completed forecast windows per second using the model-call timing boundary.</li>
+          <li><strong>Pipeline overhead:</strong> the additional time attributed to work outside the model-call timing boundary, reported separately.</li>
+        </ul>
+      </article>
+      <article class="measurement-detail">
+        <h3>GPU telemetry and memory measurements</h3>
+        <p>
+          GPU power and GPU memory/utilization telemetry are collected through software-accessible
+          device interfaces while inference runs. GPU power samples are used to derive the reported
+          GPU energy for the measurement interval. GPU memory fields describe the recorded device
+          or process memory scope; they should be interpreted with the associated scope metadata.
+        </p>
+        <ul>
+          <li><strong>Power:</strong> average, variability, percentile, and peak GPU power where available.</li>
+          <li><strong>Energy:</strong> integrated GPU-reported energy over the measured interval.</li>
+          <li><strong>Memory:</strong> allocated/reserved and device-used memory metrics where available.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="measurement-formula-grid">
+      <article class="measurement-formula">
+        <span class="formula-label">Performance metric</span>
+        <h3>Throughput</h3>
+        <div class="measurement-equation">Throughput = N_windows / T_measurement</div>
+        <p>
+          <em>N</em><sub>windows</sub> is the number of forecast windows completed inside the measured
+          interval, and <em>T</em><sub>measurement</sub> is its duration in seconds. The unit is
+          windows/second. Forecast-points throughput can be reported as
+          windows/second × forecast horizon.
+        </p>
+      </article>
+      <article class="measurement-formula">
+        <span class="formula-label">GPU energy metric</span>
+        <h3>Energy per Forecast (EPF)</h3>
+        <div class="measurement-equation">EPF = E_GPU / N_windows</div>
+        <p>
+          <em>E</em><sub>GPU</sub> is the GPU-reported energy accumulated during the same measurement
+          interval, and <em>N</em><sub>windows</sub> is the number of forecast windows completed in that
+          interval. EPF is reported in joules per forecast window (J/window).
+        </p>
+      </article>
+    </div>
+
+    <div class="measurement-caveat">
+      <strong>Interpretation boundary.</strong> These are software-instrumented inference
+      measurements plus GPU telemetry; they are not a full-system power audit. In particular,
+      a lower GPU EPF does not necessarily imply lower total server or device energy, because
+      non-GPU components and power-conversion losses are outside this measurement boundary.
+    </div>
+
+    <p class="measurement-foot">
+      The benchmark records configuration and quality metadata alongside measurements, including
+      power mode and its verification status, warm-up settings, repeat identifiers, completion
+      status, OOM/error counts, throttling flags, and telemetry sample counts. Aggregate statistics
+      are provided as mean, standard deviation, and 95% confidence interval fields when available.
+    </p>
+  </div>
+</section>
+
+<section class="section-pad setup-future" id="workloads">
   <div class="section-wrap">
     <div class="section-kicker">Experimental design · Current setup</div>
     <h2 class="section-title">Workload space</h2>
@@ -571,7 +721,7 @@
             <span class="paper-figure-number">H100 · Memory footprint</span>
             <h4>Peak GPU memory</h4>
             <p>Peak memory use across forecasting workloads, highlighting the resource demands of different configurations.</p>
-            <a class="figure-source" href="static/paper_figures/h100_absolute_memory_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+            <a class="figure-source" href="static/images/paper_figures/h100_absolute_memory_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
           </figcaption>
         </figure>
 
