@@ -100,6 +100,9 @@
 
     /* Dedicated software measurement and GPU-energy methodology section. */
     .measurement-intro { max-width:880px; }
+    .measurement-overview { margin:1.45rem 0 1.65rem; padding:1rem; overflow:hidden; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:0 7px 24px rgba(20,32,51,.045); }
+    .measurement-overview img { display:block; width:100%; height:auto; object-fit:contain; }
+    .measurement-overview figcaption { margin-top:.7rem; color:var(--muted); font-size:.8rem; line-height:1.55; }
     .measurement-scope-banner { display:flex; align-items:flex-start; gap:1rem; margin-top:1.6rem; padding:1.15rem 1.25rem; border:1px solid #cfe7e4; border-radius:15px; background:linear-gradient(110deg,#effaf8,#f7fbff); }
     .measurement-scope-mark { flex:0 0 38px; display:grid; place-items:center; width:38px; height:38px; border-radius:11px; background:#dff4ef; color:#14766f; font-size:1.1rem; font-weight:900; }
     .measurement-scope-banner strong { display:block; color:#164f4b; font-size:.96rem; margin-bottom:.25rem; }
@@ -115,7 +118,7 @@
     .measurement-detail h3 { margin:0 0 .55rem; font-size:1.02rem; font-weight:850; }
     .measurement-detail p,.measurement-detail li { color:var(--muted); font-size:.87rem; line-height:1.7; }
     .measurement-detail ul { margin:.55rem 0 0 1.1rem; }
-    .measurement-formula-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1.35rem; }
+    .measurement-formula-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1.35rem; }
     .measurement-formula { padding:1.25rem; border:1px solid #dfe6f5; border-radius:16px; background:#fff; }
     .measurement-formula .formula-label { display:block; color:var(--accent); font-size:.7rem; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }
     .measurement-formula h3 { margin:.4rem 0 .45rem; font-size:1rem; font-weight:850; }
@@ -123,7 +126,7 @@
     .measurement-formula p { margin:0; color:var(--muted); font-size:.83rem; line-height:1.65; }
     .measurement-caveat { margin-top:1.2rem; padding:1rem 1.15rem; border-left:4px solid #d58b43; border-radius:0 12px 12px 0; background:#fff8ee; color:#76532d; font-size:.84rem; line-height:1.7; }
     .measurement-foot { margin-top:1rem; color:var(--muted); font-size:.8rem; line-height:1.65; }
-    @media(max-width:850px) { .measurement-flow { grid-template-columns:repeat(2,minmax(0,1fr)); } .measurement-step:nth-child(2)::after { display:none; } }
+    @media(max-width:850px) { .measurement-flow { grid-template-columns:repeat(2,minmax(0,1fr)); } .measurement-step:nth-child(2)::after { display:none; } .measurement-formula-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:600px) { .measurement-detail-grid,.measurement-formula-grid { grid-template-columns:1fr; } .measurement-flow { grid-template-columns:1fr; } .measurement-step::after { display:none !important; } .measurement-scope-banner { padding:1rem; } }
 
     /* Futuristic, expandable current benchmark setup. Scoped to the experiment-design section. */
@@ -364,120 +367,87 @@
     
 <section class="section-pad section-soft" id="measurement-setup">
   <div class="section-wrap">
-    <div class="section-kicker">Experimental protocol · Measurement setup</div>
-    <h2 class="section-title">How system measurements are collected</h2>
+    <div class="section-kicker">Experimental setup · Measurement protocol</div>
+    <h2 class="section-title">How each inference run is measured</h2>
     <p class="section-intro measurement-intro">
-      ForecastPowerBench uses software-level instrumentation around model inference, together with
-      GPU-device telemetry. Each result is associated with a specific model, execution device,
-      context length, forecast horizon, batch size, and benchmark configuration.
+      Each run fixes a model, GPU, context length, forecast horizon, and batch size.
+      Warm-up is excluded; software counters and GPU telemetry are collected during inference.
     </p>
+
+    <figure class="measurement-overview">
+      <img src="static/images/overview.png"
+           alt="Gantt-style measurement timeline showing initialization, excluded warm-up, measured inference, concurrent GPU monitoring, and metric computation"
+           loading="lazy" decoding="async">
+      <figcaption>Measurement timeline for one model–workload–hardware configuration. The measured interval begins after warm-up and ends when the timed inference work is complete.</figcaption>
+    </figure>
 
     <div class="measurement-scope-banner">
       <div class="measurement-scope-mark" aria-hidden="true">GPU</div>
       <div>
-        <strong>Important: energy is GPU-domain only</strong>
-        <p>
-          EPF is calculated from GPU-reported power/energy telemetry during the measured inference
-          interval. This is not whole-machine energy: CPU, system memory outside the GPU,
-          motherboard, storage, display, cooling fans, peripherals, and wall-plug losses are not
-          included. Throughput and timing, by contrast, are measured in software around the
-          benchmark execution path.
-        </p>
+        <strong>Energy boundary: GPU device only</strong>
+        <p>GPU energy is derived from NVML power telemetry. CPU energy, DRAM, storage, fans, peripherals, and wall-plug energy are excluded. CPU/process memory is reported separately.</p>
       </div>
     </div>
 
     <div class="measurement-flow" aria-label="Measurement workflow">
       <article class="measurement-step">
         <span class="measurement-step-no">01</span>
-        <h3>Configure the workload</h3>
-        <p>Specify model, execution device, context length, forecast horizon, batch size, dataset, and run settings. The configuration is recorded with the result.</p>
+        <h3>Configure</h3>
+        <p>Select model, GPU, context length, horizon, and batch size.</p>
       </article>
       <article class="measurement-step">
         <span class="measurement-step-no">02</span>
-        <h3>Warm up the model</h3>
-        <p>Run the configured warm-up before collecting measurements. Warm-up scope and batch/window counts are recorded separately from measured work.</p>
+        <h3>Warm up</h3>
+        <p>Run warm-up iterations before measurement; exclude them from metrics.</p>
       </article>
       <article class="measurement-step">
         <span class="measurement-step-no">03</span>
-        <h3>Measure inference</h3>
-        <p>Software instrumentation records the measurement duration and the forecast windows processed. GPU telemetry is sampled over the corresponding measurement interval.</p>
+        <h3>Measure</h3>
+        <p>Time inference, count completed windows, and sample GPU telemetry concurrently.</p>
       </article>
       <article class="measurement-step">
         <span class="measurement-step-no">04</span>
-        <h3>Repeat and aggregate</h3>
-        <p>Measurements are repeated for a configuration. The result files retain repeat/completion information and report mean, standard deviation, and confidence intervals where available.</p>
+        <h3>Aggregate</h3>
+        <p>Repeat runs and calculate throughput, EPF, and peak memory.</p>
       </article>
     </div>
 
     <div class="measurement-detail-grid">
       <article class="measurement-detail">
-        <h3>Software-level performance measurements</h3>
-        <p>
-          Timing is collected by the benchmark software rather than an external power meter or
-          hardware logic analyzer. The benchmark records the end-to-end measurement duration and
-          completed forecast windows. It also records model-call timing and throughput separately
-          where available, allowing model execution to be distinguished from surrounding pipeline
-          overhead.
-        </p>
-        <ul>
-          <li><strong>End-to-end throughput:</strong> completed forecast windows per second over the measured execution interval.</li>
-          <li><strong>Model-call throughput:</strong> completed forecast windows per second using the model-call timing boundary.</li>
-          <li><strong>Pipeline overhead:</strong> the additional time attributed to work outside the model-call timing boundary, reported separately.</li>
-        </ul>
+        <h3>Software counters</h3>
+        <p>The benchmark records elapsed time and completed forecast windows. Model-call timing and pipeline overhead are retained separately where available.</p>
       </article>
       <article class="measurement-detail">
-        <h3>GPU telemetry and memory measurements</h3>
-        <p>
-          GPU power and GPU memory/utilization telemetry are collected through software-accessible
-          device interfaces while inference runs. GPU power samples are used to derive the reported
-          GPU energy for the measurement interval. GPU memory fields describe the recorded device
-          or process memory scope; they should be interpreted with the associated scope metadata.
-        </p>
-        <ul>
-          <li><strong>Power:</strong> average, variability, percentile, and peak GPU power where available.</li>
-          <li><strong>Energy:</strong> integrated GPU-reported energy over the measured interval.</li>
-          <li><strong>Memory:</strong> allocated/reserved and device-used memory metrics where available.</li>
-        </ul>
+        <h3>Concurrent telemetry</h3>
+        <p>PyNVML collects GPU power, memory, and utilization; psutil records CPU/process memory. Only GPU power contributes to EPF.</p>
       </article>
     </div>
 
     <div class="measurement-formula-grid">
       <article class="measurement-formula">
-        <span class="formula-label">Performance metric</span>
+        <span class="formula-label">Performance</span>
         <h3>Throughput</h3>
-        <div class="measurement-equation">Throughput = N_windows / T_measurement</div>
-        <p>
-          <em>N</em><sub>windows</sub> is the number of forecast windows completed inside the measured
-          interval, and <em>T</em><sub>measurement</sub> is its duration in seconds. The unit is
-          windows/second. Forecast-points throughput can be reported as
-          windows/second × forecast horizon.
-        </p>
+        <div class="measurement-equation">T = N_windows / T_measurement</div>
+        <p>Completed forecast windows per second over the measured interval.</p>
       </article>
       <article class="measurement-formula">
-        <span class="formula-label">GPU energy metric</span>
-        <h3>Energy per Forecast (EPF)</h3>
+        <span class="formula-label">GPU energy</span>
+        <h3>Energy per Forecast</h3>
         <div class="measurement-equation">EPF = E_GPU / N_windows</div>
-        <p>
-          <em>E</em><sub>GPU</sub> is the GPU-reported energy accumulated during the same measurement
-          interval, and <em>N</em><sub>windows</sub> is the number of forecast windows completed in that
-          interval. EPF is reported in joules per forecast window (J/window).
-        </p>
+        <p><em>E</em><sub>GPU</sub> is the time-integral of sampled GPU power; EPF is reported in J/window.</p>
+      </article>
+      <article class="measurement-formula">
+        <span class="formula-label">Memory</span>
+        <h3>Peak GPU memory</h3>
+        <div class="measurement-equation">M_peak = max M_GPU(t)</div>
+        <p>Maximum observed GPU memory during the measured inference interval.</p>
       </article>
     </div>
 
     <div class="measurement-caveat">
-      <strong>Interpretation boundary.</strong> These are software-instrumented inference
-      measurements plus GPU telemetry; they are not a full-system power audit. In particular,
-      a lower GPU EPF does not necessarily imply lower total server or device energy, because
-      non-GPU components and power-conversion losses are outside this measurement boundary.
+      <strong>Interpretation boundary.</strong> These measurements describe inference software performance and GPU-device energy, not total machine energy.
     </div>
-
-    <p class="measurement-foot">
-      The benchmark records configuration and quality metadata alongside measurements, including
-      power mode and its verification status, warm-up settings, repeat identifiers, completion
-      status, OOM/error counts, throttling flags, and telemetry sample counts. Aggregate statistics
-      are provided as mean, standard deviation, and 95% confidence interval fields when available.
-    </p>
+    <p class="measurement-foot">Warm-up settings, repeat IDs, completion status, OOM/error counts, throttling flags, telemetry sample counts, and aggregate statistics are retained where available.</p>
   </div>
 </section>
 
@@ -486,8 +456,8 @@
     <div class="section-kicker">Experimental design · Current setup</div>
     <h2 class="section-title">Workload space</h2>
     <p class="section-intro">
-      The current benchmark spans 10 TSFMs, 63 context–horizon combinations, and four NVIDIA platforms.
-      
+      The benchmark covers 10 TSFMs and four NVIDIA platforms. The workload grid contains
+      7 context lengths × 9 forecast horizons = 63 context–horizon pairs, where supported.
     </p>
 
     <div class="setup-console">
@@ -497,22 +467,22 @@
       </div>
       <div class="setup-grid">
         <article class="setup-stat">
-          <span class="setup-stat-index">01 / CONTEXT LENGTH</span>
+          <span class="setup-stat-index">01 / CONTEXT LENGTH · Lc</span>
           <strong>32 <i>→</i> 2,048</strong>
           <p>7 tested settings</p>
           <div class="setup-chip-row"><span>32</span><span>64</span><span>128</span><span>256</span><span>512</span><span>1,024</span><span>2,048</span></div>
         </article>
         <article class="setup-stat">
-          <span class="setup-stat-index">02 / FORECAST HORIZON</span>
+          <span class="setup-stat-index">02 / FORECAST HORIZON · Lh</span>
           <strong>1 <i>→</i> 720</strong>
           <p>9 tested settings</p>
           <div class="setup-chip-row"><span>1</span><span>6</span><span>12</span><span>24</span><span>48</span><span>96</span><span>192</span><span>360</span><span>720</span></div>
         </article>
         <article class="setup-stat">
-          <span class="setup-stat-index">03 / BATCH SIZE</span>
+          <span class="setup-stat-index">03 / BATCH SIZE · B</span>
           <strong>1 <i>→</i> 4,096</strong>
-          <p>Powers of two, subject to memory limits</p>
-          <div class="setup-track" aria-label="Batch size sweep from 1 to 4096"><span></span></div>
+          <p>Exact sweep: powers of two, subject to memory limits</p>
+          <div class="setup-chip-row" aria-label="Batch sizes: 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096"><span>1</span><span>2</span><span>4</span><span>8</span><span>16</span><span>32</span><span>64</span><span>128</span><span>256</span><span>512</span><span>1,024</span><span>2,048</span><span>4,096</span></div>
         </article>
         <article class="setup-stat">
           <span class="setup-stat-index">04 / MODEL SUITE</span>
