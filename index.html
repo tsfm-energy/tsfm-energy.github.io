@@ -74,21 +74,28 @@
     tr:last-child td { border-bottom:0; }
     .pill { display:inline-block; border-radius:99px; padding:.3rem .6rem; background:#eef1ff; color:#4057bd; font-weight:700; font-size:.76rem; margin:.2rem .2rem .2rem 0; }
 
-    /* Paper figure gallery: isolated styling; original section and hero styles remain unchanged. */
-    .paper-figure-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.35rem; margin-top:2rem; }
-    .paper-figure-card { margin:0; min-width:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 8px 24px rgba(20,32,51,.055); }
-    .paper-figure-media { display:flex; align-items:center; justify-content:center; padding:1rem; background:#f8faff; border-bottom:1px solid var(--line); min-height:230px; }
-    .paper-figure-media img, .paper-figure-media object { display:block; width:100%; height:290px; object-fit:contain; border:0; background:#fff; }
-    .paper-figure-media object { pointer-events:none; }
-    .paper-figure-media { display:flex; align-items:center; justify-content:center; overflow:hidden; text-decoration:none; }
-    .figure-source { display:inline-block; margin-top:.8rem; color:var(--accent); font-size:.82rem; font-weight:750; text-decoration:none; }
+    /* Responsive SVG research-figure gallery. */
+    .paper-figure-group { margin-top:2.15rem; }
+    .paper-figure-group-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .paper-figure-group-heading h3 { margin:0; font-size:1.18rem; font-weight:850; letter-spacing:-.025em; }
+    .paper-figure-group-heading p { margin:.3rem 0 0; color:var(--muted); font-size:.89rem; line-height:1.65; }
+    .paper-figure-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; margin-top:1.15rem; align-items:stretch; }
+    .paper-figure-card { display:flex; flex-direction:column; min-width:0; margin:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 7px 24px rgba(20,32,51,.045); transition:transform .18s ease,box-shadow .18s ease; }
+    .paper-figure-card:hover { transform:translateY(-2px); box-shadow:0 13px 30px rgba(20,32,51,.09); }
+    .paper-figure-media { display:flex; align-items:center; justify-content:center; min-height:255px; height:315px; padding:1rem; background:linear-gradient(180deg,#fff 0%,#fbfcff 100%); border-bottom:1px solid var(--line); text-decoration:none; }
+    .paper-figure-media img { display:block; width:100%; height:100%; object-fit:contain; }
+    .paper-figure-copy { display:flex; flex:1; flex-direction:column; align-items:flex-start; padding:1.1rem 1.2rem 1.2rem; }
+    .paper-figure-number { color:var(--accent); text-transform:uppercase; letter-spacing:.1em; font-size:.68rem; font-weight:850; }
+    .paper-figure-copy h4 { margin:.35rem 0 .45rem; font-size:1.03rem; font-weight:850; line-height:1.4; }
+    .paper-figure-copy p { margin:0; color:var(--muted); font-size:.88rem; line-height:1.65; }
+    .figure-source { display:inline-flex; align-items:center; gap:.35rem; margin-top:auto; padding-top:.85rem; color:var(--accent); font-size:.8rem; font-weight:800; text-decoration:none; }
     .figure-source:hover { text-decoration:underline; }
-    .paper-figure-copy { padding:1.1rem 1.2rem 1.25rem; }
-    .paper-figure-number { color:var(--accent); text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; font-weight:800; }
-    .paper-figure-copy h3 { margin:.35rem 0 .5rem; font-size:1.04rem; font-weight:800; line-height:1.4; }
-    .paper-figure-copy p { margin:0; color:var(--muted); font-size:.9rem; line-height:1.65; }
-    .figure-path { display:block; margin-top:.7rem; color:#68758b; font-size:.74rem; overflow-wrap:anywhere; }
-    @media(max-width:760px) { .paper-figure-grid { grid-template-columns:1fr; } .paper-figure-media img { height:auto; max-height:360px; } }
+    .figure-gallery-note { margin-top:1.2rem; padding:.9rem 1.05rem; border:1px solid #e2e8f5; border-radius:12px; background:#f8faff; color:#5c687b; font-size:.82rem; line-height:1.65; }
+    @media(max-width:760px) {
+      .paper-figure-grid { grid-template-columns:1fr; }
+      .paper-figure-media { height:auto; min-height:210px; aspect-ratio:16/9; padding:.75rem; }
+      .paper-figure-card:hover { transform:none; }
+    }
 
     /* Futuristic, expandable current benchmark setup. Scoped to the experiment-design section. */
     .setup-future { position:relative; overflow:hidden; background:radial-gradient(ellipse at 8% 10%,rgba(73,104,232,.15),transparent 34%),radial-gradient(ellipse at 92% 78%,rgba(22,166,161,.12),transparent 30%),#0d1728; color:#f2f6ff; }
@@ -514,103 +521,118 @@
 
 <section class="section-pad" id="results">
   <div class="section-wrap">
-    <div class="section-kicker">Results from the paper</div>
-    <h2 class="section-title">Where workload meets system cost</h2>
+    <div class="section-kicker">Results from the paper · Interactive figure gallery</div>
+    <h2 class="section-title">Workload and hardware shape inference efficiency</h2>
     <p class="section-intro">
-      Six key figures show workload scaling, context–horizon sensitivity, cross-platform behavior,
-      and the trade-offs between forecasting quality, energy, and model scale.
+      Explore six vector figures from ForecastPowerBench. The H100 heatmaps show how workload dimensions
+      affect throughput, energy, and memory; the final comparisons extend the view across hardware and
+      batch-size configurations. Select any plot to open its full-resolution SVG.
     </p>
 
-    <div class="paper-figure-grid">
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/absolute_throughput_heatmap.pdf" target="_blank" rel="noopener" aria-label="Open Figure 2 PDF">
-          <object data="static/images/paper_figures/absolute_throughput_heatmap.pdf" type="application/pdf" aria-label="Absolute throughput across context and horizon configurations">
-            <span>PDF preview unavailable — <u>open Figure 2</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 2 · Workload scaling</span>
-          <h3>Throughput across context–horizon configurations</h3>
-          <p>Absolute throughput for 10 TSFMs on the NVIDIA H100 at batch size 512. The pattern varies substantially by model and workload.</p>
-          <a class="figure-source" href="static/images/paper_figures/absolute_throughput_heatmap.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
+    <div class="paper-figure-group">
+      <div class="paper-figure-group-heading">
+        <div>
+          <h3>Workload sensitivity · NVIDIA H100</h3>
+          <p>Four complementary views of context-length and forecast-horizon scaling.</p>
+        </div>
+        <span class="pill">4 workload heatmaps</span>
+      </div>
 
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/absolute_energy_heatmap.pdf" target="_blank" rel="noopener" aria-label="Open Figure 3 PDF">
-          <object data="static/images/paper_figures/absolute_energy_heatmap.pdf" type="application/pdf" aria-label="Energy per forecast across forecasting workloads">
-            <span>PDF preview unavailable — <u>open Figure 3</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 3 · Energy cost</span>
-          <h3>Energy per Forecast across workloads</h3>
-          <p>EPF across context lengths and forecast horizons on the NVIDIA H100 at batch size 512, revealing workload-dependent energy costs.</p>
-          <a class="figure-source" href="static/images/paper_figures/absolute_energy_heatmap.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
+      <div class="paper-figure-grid">
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/h100_absolute_throughput_heatmap.svg" target="_blank" rel="noopener" aria-label="Open H100 absolute throughput heatmap in full size">
+            <img src="static/paper_figures/h100_absolute_throughput_heatmap.svg" alt="Absolute throughput heatmap across context lengths and forecast horizons on NVIDIA H100" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">H100 · Workload scaling</span>
+            <h4>Absolute throughput</h4>
+            <p>Forecast-window throughput across the evaluated context-length and forecast-horizon configurations.</p>
+            <a class="figure-source" href="static/paper_figures/h100_absolute_throughput_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
 
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/elasticity_nvidia_h100.pdf" target="_blank" rel="noopener" aria-label="Open Figure 5 PDF">
-          <object data="static/images/paper_figures/elasticity_nvidia_h100.pdf" type="application/pdf" aria-label="Context and forecast horizon throughput sensitivity">
-            <span>PDF preview unavailable — <u>open Figure 5</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 5 · Sensitivity</span>
-          <h3>Context length versus horizon sensitivity</h3>
-          <p>Compares model sensitivity to increasing context and forecast horizon for throughput and EPF. The dominant scaling dimension differs across models.</p>
-          <a class="figure-source" href="static/images/paper_figures/elasticity_nvidia_h100.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/h100_absolute_energy_heatmap.svg" target="_blank" rel="noopener" aria-label="Open H100 absolute energy heatmap in full size">
+            <img src="static/paper_figures/h100_absolute_energy_heatmap.svg" alt="Absolute energy per forecast heatmap across context lengths and forecast horizons on NVIDIA H100" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">H100 · Energy cost</span>
+            <h4>Energy per forecast</h4>
+            <p>Energy consumed per forecast window, exposing how inference energy changes with workload size.</p>
+            <a class="figure-source" href="static/paper_figures/h100_absolute_energy_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
 
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/combined_per_device_throughput.pdf" target="_blank" rel="noopener" aria-label="Open Figure 6 PDF">
-          <object data="static/images/paper_figures/combined_per_device_throughput.pdf" type="application/pdf" aria-label="Throughput versus batch size across four hardware platforms">
-            <span>PDF preview unavailable — <u>open Figure 6</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 6 · Cross-platform scaling</span>
-          <h3>Throughput versus batch size across platforms</h3>
-          <p>Compares batch-size scaling on the Jetson AGX Orin, H100, RTX 5090, and RTX A6000 for context 512 and horizon 96.</p>
-          <a class="figure-source" href="static/images/paper_figures/combined_per_device_throughput.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/h100_absolute_memory_heatmap.svg" target="_blank" rel="noopener" aria-label="Open H100 absolute memory heatmap in full size">
+            <img src="static/paper_figures/h100_absolute_memory_heatmap.svg" alt="Absolute GPU memory heatmap across context lengths and forecast horizons on NVIDIA H100" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">H100 · Memory footprint</span>
+            <h4>Peak GPU memory</h4>
+            <p>Peak memory use across forecasting workloads, highlighting the resource demands of different configurations.</p>
+            <a class="figure-source" href="static/paper_figures/h100_absolute_memory_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
 
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/tp_vs_energy_nvidia_h100.pdf" target="_blank" rel="noopener" aria-label="Open Figure 8 PDF">
-          <object data="static/images/paper_figures/tp_vs_energy_nvidia_h100.pdf" type="application/pdf" aria-label="Accuracy-efficiency trade-offs across forecasting regimes">
-            <span>PDF preview unavailable — <u>open Figure 8</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 8 · Accuracy and energy</span>
-          <h3>Accuracy–efficiency trade-offs</h3>
-          <p>Throughput and EPF across short (512, 48), medium (1024, 360), and long (2048, 720) regimes; bubble size represents MASE.</p>
-          <a class="figure-source" href="static/images/paper_figures/tp_vs_energy_nvidia_h100.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
-
-      <figure class="paper-figure-card">
-        <a class="paper-figure-media" href="static/images/paper_figures/model_param_throughput_epf.pdf" target="_blank" rel="noopener" aria-label="Open Figure 10 PDF">
-          <object data="static/images/paper_figures/model_param_throughput_epf.pdf" type="application/pdf" aria-label="Throughput-energy trade-offs and model parameter count">
-            <span>PDF preview unavailable — <u>open Figure 10</u></span>
-          </object>
-        </a>
-        <figcaption class="paper-figure-copy">
-          <span class="paper-figure-number">Figure 10 · Model scale</span>
-          <h3>Parameter count is not enough</h3>
-          <p>Throughput–EPF trade-offs across forecasting regimes, with marker size encoding parameter count. Model size alone does not determine inference cost.</p>
-          <a class="figure-source" href="static/images/paper_figures/model_param_throughput_epf.pdf" target="_blank" rel="noopener">Open figure PDF ↗</a>
-        </figcaption>
-      </figure>
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/h100_relative_throughput_heatmap.svg" target="_blank" rel="noopener" aria-label="Open H100 relative throughput heatmap in full size">
+            <img src="static/paper_figures/h100_relative_throughput_heatmap.svg" alt="Relative throughput heatmap across context lengths and forecast horizons on NVIDIA H100" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">H100 · Normalized scaling</span>
+            <h4>Relative throughput</h4>
+            <p>Normalized throughput reveals workload sensitivity separately from absolute differences in model speed.</p>
+            <a class="figure-source" href="static/paper_figures/h100_relative_throughput_heatmap.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+      </div>
     </div>
+
+    <div class="paper-figure-group">
+      <div class="paper-figure-group-heading">
+        <div>
+          <h3>Hardware and batch-size comparisons</h3>
+          <p>System-level comparisons beyond a single device or workload slice.</p>
+        </div>
+        <span class="pill">2 comparison figures</span>
+      </div>
+
+      <div class="paper-figure-grid">
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/combined_per_device_throughput_energy.svg" target="_blank" rel="noopener" aria-label="Open cross-device throughput and energy figure in full size">
+            <img src="static/paper_figures/combined_per_device_throughput_energy.svg" alt="Combined comparison of throughput and energy across benchmark devices" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">Cross-platform evaluation</span>
+            <h4>Throughput and energy across devices</h4>
+            <p>Compare the throughput and energy behavior of the evaluated models across the benchmark hardware platforms.</p>
+            <a class="figure-source" href="static/paper_figures/combined_per_device_throughput_energy.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+
+        <figure class="paper-figure-card">
+          <a class="paper-figure-media" href="static/paper_figures/batch512_throughput_epf_vertical_panels.svg" target="_blank" rel="noopener" aria-label="Open batch 512 throughput and EPF panels in full size">
+            <img src="static/paper_figures/batch512_throughput_epf_vertical_panels.svg" alt="Throughput and energy per forecast comparison in vertical panels at batch size 512" loading="lazy" decoding="async">
+          </a>
+          <figcaption class="paper-figure-copy">
+            <span class="paper-figure-number">Batch-size scaling · 512</span>
+            <h4>Throughput and EPF at batch size 512</h4>
+            <p>Side-by-side system-efficiency views for the batch-512 workload comparison.</p>
+            <a class="figure-source" href="static/paper_figures/batch512_throughput_epf_vertical_panels.svg" target="_blank" rel="noopener">Open full-size SVG <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="figure-gallery-note">
+      Figures are served as SVG vector graphics for crisp display at different screen sizes. Use “Open full-size SVG”
+      to inspect or zoom a plot independently of the page layout.
+    </p>
   </div>
 </section>
 
-
-    <section class="section-pad section-soft" id="reproducibility">
+<section class="section-pad section-soft" id="reproducibility">
       <div class="section-wrap">
         <div class="section-kicker">Reproducibility</div>
         <h2 class="section-title">Reproduce paper results</h2>
