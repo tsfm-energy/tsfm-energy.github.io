@@ -185,6 +185,41 @@
     .ranking-position { display:inline-grid; place-items:center; width:23px; height:23px; margin-right:.35rem; border-radius:7px; background:#edf0f7; font-size:.75rem; font-weight:800; }
     @media(max-width:500px) { .ranking-row { grid-template-columns:80px minmax(40px,1fr) auto; gap:.4rem; } .ranking-model,.ranking-value { font-size:.75rem; } }
     @media(max-width:700px) { .ranker-controls { grid-template-columns:1fr; padding:1.1rem; } .ranker-results { padding:1.1rem; } .ranker-top { padding:1.1rem; } }
+
+    /* Interactive EPF–throughput leaderboard scatterplot. */
+    .eff-map-shell { margin-top:2rem; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:#fff; box-shadow:0 12px 40px rgba(20,32,51,.055); }
+    .eff-map-top { padding:1.35rem 1.5rem; color:#fff; background:linear-gradient(120deg,#111b2b,#243b64); }
+    .eff-map-top h3 { margin:.35rem 0 .25rem; font-size:1.35rem; font-weight:850; }
+    .eff-map-top p { margin:0; color:#d5def0; font-size:.9rem; line-height:1.6; }
+    .eff-map-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--line); }
+    .eff-map-controls .ranker-field label { display:block; }
+    .eff-map-controls select { width:100%; padding:.65rem .7rem; border:1px solid #d7deea; border-radius:9px; background:#fff; color:var(--ink); font:inherit; }
+    .eff-map-options { display:flex; flex-wrap:wrap; align-items:center; gap:1rem; padding:.85rem 1.5rem; border-bottom:1px solid var(--line); background:#fbfcff; }
+    .eff-map-check { display:inline-flex; align-items:center; gap:.45rem; color:#536077; font-size:.85rem; font-weight:650; }
+    .eff-map-check input { accent-color:var(--accent); }
+    .eff-map-frame { position:relative; padding:1rem 1rem .25rem; }
+    .eff-map-scroll { width:100%; overflow-x:auto; }
+    #efficiency-plot { min-width:680px; }
+    .eff-map-svg { display:block; width:100%; height:auto; overflow:visible; }
+    .eff-gridline { stroke:#e9edf4; stroke-width:1; }
+    .eff-axis-tick { fill:#68758b; font-size:12px; font-family:Inter,system-ui,sans-serif; }
+    .eff-axis-title { fill:#35435a; font-size:14px; font-weight:750; font-family:Inter,system-ui,sans-serif; }
+    .eff-point { cursor:pointer; transition:r .12s ease,opacity .12s ease; }
+    .eff-point:hover,.eff-point:focus { r:11; outline:none; filter:drop-shadow(0 2px 4px rgba(20,32,51,.25)); }
+    .eff-point-label { fill:#27354b; font-size:12px; font-weight:750; paint-order:stroke; stroke:#fff; stroke-width:4px; stroke-linejoin:round; pointer-events:none; font-family:Inter,system-ui,sans-serif; }
+    .eff-frontier { fill:none; stroke:#e17b3b; stroke-width:2.5; stroke-dasharray:7 6; stroke-linecap:round; stroke-linejoin:round; opacity:.9; pointer-events:none; }
+    .eff-map-tooltip { display:none; position:absolute; z-index:5; max-width:245px; white-space:pre-line; pointer-events:none; padding:.75rem .85rem; border:1px solid rgba(255,255,255,.12); border-radius:10px; background:rgba(17,27,43,.96); color:#fff; box-shadow:0 10px 30px rgba(0,0,0,.2); font-size:.78rem; line-height:1.55; }
+    .eff-map-tooltip.visible { display:block; }
+    .eff-map-legend { display:flex; flex-wrap:wrap; gap:.5rem; padding:0 1.5rem 1rem; }
+    .eff-legend-item { display:inline-flex; align-items:center; gap:.42rem; padding:.4rem .62rem; border:1px solid var(--line); border-radius:8px; background:#fff; color:#42516a; font:650 .78rem Inter,system-ui,sans-serif; cursor:pointer; }
+    .eff-legend-item:hover { border-color:#b8c5e8; background:#f8faff; }
+    .eff-legend-item.is-muted { opacity:.4; text-decoration:line-through; }
+    .eff-legend-dot { width:9px; height:9px; border-radius:50%; }
+    .eff-map-status { margin:0 1.5rem 1.25rem; padding:.8rem .95rem; border-radius:10px; background:#f5f7fb; color:#5c687b; font-size:.83rem; line-height:1.6; }
+    .eff-map-empty { display:grid; min-height:330px; place-items:center; padding:2rem; color:var(--muted); text-align:center; border:1px dashed #d6deeb; border-radius:12px; background:#fafbfe; }
+    @media(max-width:850px) { .eff-map-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media(max-width:520px) { .eff-map-controls { grid-template-columns:1fr; padding:1rem; } .eff-map-frame { padding:.5rem .5rem 0; } .eff-map-legend { padding:0 .9rem .9rem; } .eff-map-status { margin:0 .9rem .9rem; } }
+
     .footer { padding:2.5rem 1.25rem; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; }
     .footer-wrap { max-width:1100px; margin:auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
     a { transition:color .15s ease; }
@@ -202,6 +237,7 @@
         <a href="#workloads">Workloads</a>
         <a href="#findings">Findings</a>
         <a href="#ranker">Results explorer</a>
+        <a href="#efficiency-map">Efficiency map</a>
         <a href="#results">Results</a>
         <a href="#reproducibility">Reproducibility</a>
       </div>
@@ -440,6 +476,41 @@
         </div>
       </div>
     </section>
+
+
+<section class="section-pad" id="efficiency-map">
+  <div class="section-wrap">
+    <div class="section-kicker">Interactive leaderboard</div>
+    <h2 class="section-title">Throughput–energy efficiency map</h2>
+    <p class="section-intro">Explore the trade-off between throughput and Energy per Forecast (EPF) for each model. Each point represents one model under the selected hardware and forecasting workload. The upper-left region is preferable: lower energy per forecast and higher throughput.</p>
+    <div class="eff-map-shell">
+      <div class="eff-map-top">
+        <div style="font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#aebfff">ForecastPowerBench · Efficiency leaderboard</div>
+        <h3>Energy per forecast vs. throughput</h3>
+        <p>Hover over a point for exact values. Select a model in the legend to hide or show it. The dashed line shows the Pareto frontier.</p>
+      </div>
+      <div class="eff-map-controls">
+        <div class="ranker-field"><label for="map-device">Hardware platform</label><select id="map-device"><option value="">Loading platforms…</option></select></div>
+        <div class="ranker-field"><label for="map-context">Context length</label><select id="map-context"><option value="">Loading contexts…</option></select></div>
+        <div class="ranker-field"><label for="map-horizon">Forecast horizon</label><select id="map-horizon"><option value="">Loading horizons…</option></select></div>
+        <div class="ranker-field"><label for="map-batch">Batch size</label><select id="map-batch"><option value="">Loading batch sizes…</option></select></div>
+      </div>
+      <div class="eff-map-options">
+        <label class="eff-map-check" for="map-scale">Axis scale
+          <select id="map-scale" style="margin-left:.25rem;padding:.35rem .55rem;border:1px solid #d7deea;border-radius:8px;background:#fff;color:var(--ink);font:inherit"><option value="log">Logarithmic</option><option value="linear">Linear</option></select>
+        </label>
+        <label class="eff-map-check" for="map-pareto"><input id="map-pareto" type="checkbox" checked> Show Pareto frontier</label>
+      </div>
+      <div class="eff-map-frame" id="efficiency-plot-wrap">
+        <div class="eff-map-scroll"><div id="efficiency-plot"><div class="eff-map-empty">Loading benchmark measurements…</div></div></div>
+        <div id="efficiency-tooltip" class="eff-map-tooltip" role="status"></div>
+      </div>
+      <div id="efficiency-legend" class="eff-map-legend"></div>
+      <div id="efficiency-map-status" class="eff-map-status" role="status" aria-live="polite">Loading model measurements from the results manifest.</div>
+    </div>
+    <p class="ranker-note">The default logarithmic axes make models with widely differing throughput and EPF easier to compare. Switch to linear axes for an absolute-scale view. Points are aggregated by model when more than one measurement row matches the selected configuration. The Pareto frontier includes models that are not dominated in both objectives.</p>
+  </div>
+</section>
 
 <section class="section-pad" id="results">
   <div class="section-wrap">
